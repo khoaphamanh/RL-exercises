@@ -1,0 +1,18 @@
+In Level 1, we had access to the full MDP model, meaning we knew the transition probabilities T(s,a,s') 
+and the reward function R(s,a). This allowed us to compute expectations over all possible next states.
+
+For example, in Policy Evaluation (used in Policy Iteration), we compute:
+
+    Vπ(s) = R(s, π(s)) + γ * Σ_{s'} T(s, π(s), s') * Vπ(s')
+
+Similarly, in Value Iteration, we compute:
+
+    V*(s) = max_a [ R(s,a) + γ * Σ_{s'} T(s,a,s') * V*(s') ]
+
+Both equations require summing over all possible next states s' weighted by the transition probabilities T(s,a,s'). 
+This means we must know the full transition model T and the reward function R in order to compute these expectations.
+
+Because of this, we cannot compute the expectation term Σ T(s,a,s') * V(s'), which is essential in both Policy Iteration 
+and Value Iteration. Therefore, these algorithms can no longer be applied directly.
+
+
