@@ -173,6 +173,8 @@ def policy_evaluation(
     nS = R_sa.shape[0]
     V = np.zeros(nS)  # shape (5, ) value function for each state
 
+    # Vπ(s) = R(s, π(s)) + γ * Σ_s' T(s, π(s), s') * Vπ(s')
+
     while True:
         V_prev = V.copy()
         for s in range(nS):
@@ -214,6 +216,8 @@ def policy_improvement(
     nS, nA = R_sa.shape
     Q = np.zeros((nS, nA))
     pi_new = None
+
+    # Q(s, a) = R(s, a) + γ * Σ_s' T(s, a, s') * V(s')
     for s in range(nS):
         for a in range(nA):
             Q[s, a] = R_sa[s, a] + gamma * np.sum(T[s, a, :] * V)

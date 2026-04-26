@@ -64,14 +64,20 @@ class ValueIteration(AbstractAgent):
         if self.policy_fitted:
             return
 
-        # TODO: Call value_iteration() with the MDP components
-        V_opt, pi_opt = None, None  # placeholder
+        V_opt, pi_opt = value_iteration(
+            T=self.T,
+            R_sa=self.R_sa,
+            gamma=self.gamma,
+            seed=self.seed,
+        )
 
         self.V = V_opt
         self.pi = pi_opt
+
         printr("Converged V:", self.V)
         printr("Derived policy π:", self.pi)
-        # self.policy_fitted = True # TODO: uncomment this after implementation
+
+        self.policy_fitted = True
 
     def predict_action(
         self,
@@ -83,8 +89,8 @@ class ValueIteration(AbstractAgent):
         if not self.policy_fitted:
             self.update_agent()
 
-        # TODO: Return action from learned policy
-        raise NotImplementedError("predict_action() is not implemented.")
+        action = int(self.pi[observation])
+        return action, {}
 
 
 def value_iteration(
@@ -124,11 +130,38 @@ def value_iteration(
     """
     n_states, n_actions = R_sa.shape
     V = np.zeros(n_states, dtype=float)
-    # rng = np.random.default_rng(seed)  uncomment this
+    rng = np.random.default_rng(seed)
     pi = None
 
-    # TODO: update V using the Q values until convergence
+    # V*(s) = max_a [ R(s,a) + γ Σ_{s'} T(s,a,s') V*(s') ]
 
-    # TODO: Extract the greedy policy from V and update pi
+    while True:
+        V_old = V.copy()
+
+        Q = np.zeros((n_states, n_actions))
+
+        for s in range(n_states):
+            for a in range(n_actions):
+                # Q(s, a) = R(s, a) + γ * Σ_s' T(s, a, s') * V(s')
+                Q[s, a] = R_sa[s, a] + gamma * np.sum(T[s, a, :] * V_old)
+
+            V[s] = np.max(Q[s, :])
+
+        delta = np.max(np.abs(V - V_old))
+
+        if delta < epsilon:
+            break
+
+    # π*(s) = argmax_a [ R(s,a) + γ Σ T(s,a,s') V(s') ]
+    pi = np.zeros(n_states, dtype=int)
+
+    for s in range(n_states):
+        q_values = np.zeros(n_actions)
+
+        for a in range(n_actions):
+            q_values[a] = R_sa[s, a] + gamma * np.sum(T[s, a, :] * V)
+
+        best_actions = np.flatnonzero(q_values == np.max(q_values))
+        pi[s] = int(rng.choice(best_actions))
 
     return V, pi
