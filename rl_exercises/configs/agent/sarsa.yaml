@@ -1,5 +1,10 @@
 # @package _global_
 agent: sarsa
 agent_name: sarsa
+agent_kwargs:
+  alpha: 0.5
+  gamma: 1.0
+policy_kwargs:
+  epsilon: 0.1
 batch_size: 0
 training_steps: 15000
