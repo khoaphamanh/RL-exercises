@@ -5,6 +5,8 @@ env:
 seed: 0
 
 agent:
+  hidden_dim:         64       # width of each hidden layer
+  num_hidden_layers:  2        # depth: number of hidden layers
   buffer_capacity:    10000    # max replay buffer size
   batch_size:         32       # minibatch size
   learning_rate:      0.001    # maps to DQNAgent’s lr
