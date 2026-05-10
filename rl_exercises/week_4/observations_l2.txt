@@ -1,0 +1,34 @@
+Level 2 observations
+
+For Level 2, I reran the DQN experiment on CartPole-v1 with five different
+random seeds: 0, 1, 2, 3, and 4. The goal was to avoid judging the algorithm
+from only one training run, because DQN can behave quite differently depending
+on the random seed.
+
+The Level 2 plots and CSV files are saved under:
+
+rl_exercises/week_4/output_l2/
+
+The script used for these experiments is:
+
+rl_exercises/week_4/level2_rliable.py
+
+Compared with the Level 1 plots, the important difference is that the Level 2
+plots summarize performance across multiple seeds. A plain single-seed curve can
+look better or worse just because that run was lucky or unlucky. With RLiable,
+the IQM, mean, median, and optimality gap curves give a better view of the
+typical behavior across runs.
+
+The IQM curve is useful because it is less sensitive to extreme runs than the
+plain mean. If one seed performs unusually badly or unusually well, the IQM is
+less affected than the mean. The median curve is also useful because it shows
+what a typical seed looks like. The mean curve is still helpful, but it can be
+pulled by outlier seeds. The optimality gap curve is different because lower is
+better: it shows how far the current performance is from the maximum CartPole-v1
+score of 500.
+
+I feel more confident in the Level 2 result than in the Level 1 result because
+the comparison is no longer based on a single seed. Seeing the variation across
+five seeds makes it easier to judge whether the learning behavior is reliable.
+However, I would still be careful about making very strong claims, because five
+seeds is better than one but still not a very large sample.

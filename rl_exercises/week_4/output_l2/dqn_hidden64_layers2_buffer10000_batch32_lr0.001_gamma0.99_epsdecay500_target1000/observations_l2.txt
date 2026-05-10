@@ -1,0 +1,23 @@
+Level 2 observations
+
+I reran DQN on CartPole-v1 with multiple random seeds.
+Seeds used: [0, 1, 2, 3, 4]
+
+The plots and CSV files are saved under:
+/Volumes/khoa_ssd/uni/RL/RL-exercises/rl_exercises/week_4/output_l2/dqn_hidden64_layers2_buffer10000_batch32_lr0.001_gamma0.99_epsdecay500_target1000
+
+Configuration:
+- hidden_dim = 64
+- hidden_layers = 2
+- buffer_capacity = 10000
+- batch_size = 32
+- learning_rate = 0.001
+- gamma = 0.99
+- epsilon_decay = 500
+- target_update_freq = 1000
+
+What changed compared with plain averages:
+RLiable summarizes the result across seeds instead of relying on one run. The IQM curve is less sensitive to unusually good or bad seeds than a plain mean curve. The confidence intervals also make the uncertainty between seeds visible.
+
+Do I feel more confident in the result?
+Yes, because a single DQN run can be misleading. Running five seeds gives a better picture of typical behavior and shows how much variation there is between runs. I would still be careful about strong conclusions, because five seeds is useful but still a small sample.
