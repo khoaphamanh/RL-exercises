@@ -4,12 +4,15 @@ Deep Q-Learning implementation.
 
 from typing import Any, Dict, List, Tuple
 
+from pathlib import Path
+
 import gymnasium as gym
 import hydra
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from hydra.utils import get_original_cwd
 from omegaconf import DictConfig
 from rl_exercises.agent import AbstractAgent
 from rl_exercises.week_4.buffers import ReplayBuffer
@@ -121,6 +124,7 @@ class DQNAgent(AbstractAgent):
         self.target_update_freq = target_update_freq
 
         self.total_steps = 0  # for ε decay and target sync
+        self.training_curve: List[Tuple[int, float]] = []
 
     def epsilon(self) -> float:
         """
@@ -296,11 +300,46 @@ class DQNAgent(AbstractAgent):
                 if len(recent_rewards) % 10 == 0:
                     # TODO: compute avg over last eval_interval episodes and print
                     avg = np.mean(recent_rewards[-10:])
+                    self.training_curve.append((frame, float(avg)))
                     print(
                         f"Frame {frame}, AvgReward(10): {avg:.2f}, ε={self.epsilon():.3f}"
                     )
 
         print("Training complete.")
+
+
+def save_training_curve(
+    training_curve: List[Tuple[int, float]],
+    output_dir: str | Path,
+    filename: str = "learning_curve",
+    title: str = "DQN training curve",
+) -> None:
+    if not training_curve:
+        return
+
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    csv_path = output_path / f"{filename}.csv"
+    with csv_path.open("w", encoding="utf-8") as f:
+        f.write("frame,mean_reward\n")
+        for frame, mean_reward in training_curve:
+            f.write(f"{frame},{mean_reward}\n")
+
+    import matplotlib
+
+    matplotlib.use("Agg")
+    from matplotlib import pyplot as plt
+
+    frames, mean_rewards = zip(*training_curve)
+    plt.figure(figsize=(8, 5))
+    plt.plot(frames, mean_rewards)
+    plt.xlabel("Frames")
+    plt.ylabel("Mean reward")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(output_path / f"{filename}.png", dpi=150)
+    plt.close()
 
 
 @hydra.main(config_path="../configs/agent/", config_name="dqn", version_base="1.1")
@@ -325,6 +364,28 @@ def main(cfg: DictConfig):
     # 3) TODO:instantiate & train
     agent = DQNAgent(env, **agent_kwargs)
     agent.train(cfg.train.num_frames, cfg.train.eval_interval)
+
+    experiment_name = (
+        f"dqn_buffer{cfg.agent.buffer_capacity}"
+        f"_batch{cfg.agent.batch_size}"
+        f"_lr{cfg.agent.learning_rate}"
+        f"_gamma{cfg.agent.gamma}"
+        f"_epsdecay{cfg.agent.epsilon_decay}"
+        f"_target{cfg.agent.target_update_freq}"
+        f"_seed{cfg.seed}"
+    )
+    plot_title = (
+        "DQN training curve\n"
+        f"buffer={cfg.agent.buffer_capacity}, "
+        f"batch={cfg.agent.batch_size}, "
+        f"lr={cfg.agent.learning_rate}, "
+        f"gamma={cfg.agent.gamma}\n"
+        f"eps_decay={cfg.agent.epsilon_decay}, "
+        f"target_update={cfg.agent.target_update_freq}, "
+        f"seed={cfg.seed}"
+    )
+    output_dir = Path(get_original_cwd()) / "rl_exercises" / "week_4" / "output"
+    save_training_curve(agent.training_curve, output_dir, experiment_name, plot_title)
 
 
 if __name__ == "__main__":
