@@ -111,6 +111,79 @@ class ReplayBuffer(AbstractBuffer):
         return len(self.states)
 
 
+class PrioritizedReplayBuffer(ReplayBuffer):
+    """
+    Replay buffer with proportional prioritized sampling.
+
+    Sampling probability is P(i) = p_i^alpha / sum_k p_k^alpha. Each sampled
+    transition carries its buffer index and importance-sampling weight in info,
+    so agents can update priorities after computing TD errors.
+    """
+
+    def __init__(
+        self,
+        capacity: int,
+        alpha: float = 0.6,
+        beta: float = 0.4,
+        eps: float = 1e-6,
+    ) -> None:
+        super().__init__(capacity)
+        self.alpha = alpha
+        self.beta = beta
+        self.eps = eps
+        self.priorities: List[float] = []
+
+    def add(
+        self,
+        state: np.ndarray,
+        action: int | float,
+        reward: float,
+        next_state: np.ndarray,
+        done: bool,
+        info: dict,
+    ) -> None:
+        if len(self.states) >= self.capacity:
+            self.priorities.pop(0)
+
+        super().add(state, action, reward, next_state, done, info)
+        max_priority = max(self.priorities, default=1.0)
+        self.priorities.append(max_priority)
+
+    def sample(
+        self, batch_size: int = 32
+    ) -> List[Tuple[Any, Any, float, Any, bool, Dict]]:
+        size = len(self.states)
+        sample_size = min(batch_size, size)
+        priorities = np.asarray(self.priorities, dtype=np.float64)
+        scaled_priorities = priorities**self.alpha
+        probs = scaled_priorities / scaled_priorities.sum()
+        idxs = np.random.choice(size, size=sample_size, replace=False, p=probs)
+
+        weights = (size * probs[idxs]) ** (-self.beta)
+        weights /= weights.max()
+
+        batch = []
+        for idx, weight in zip(idxs, weights):
+            info = dict(self.infos[idx])
+            info["_per_index"] = int(idx)
+            info["_per_weight"] = float(weight)
+            batch.append(
+                (
+                    self.states[idx],
+                    self.actions[idx],
+                    self.rewards[idx],
+                    self.next_states[idx],
+                    self.dones[idx],
+                    info,
+                )
+            )
+        return batch
+
+    def update_priorities(self, indices: np.ndarray, priorities: np.ndarray) -> None:
+        for idx, priority in zip(indices, priorities):
+            self.priorities[int(idx)] = float(priority) + self.eps
+
+
 # note
 """
 transition = (state, action, reward, next_state, done, info)

@@ -10,12 +10,11 @@ import gymnasium as gym
 import hydra
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.optim as optim
 from hydra.utils import get_original_cwd
 from omegaconf import DictConfig
 from rl_exercises.agent import AbstractAgent
-from rl_exercises.week_4.buffers import ReplayBuffer
+from rl_exercises.week_4.buffers import PrioritizedReplayBuffer, ReplayBuffer
 from rl_exercises.week_4.networks import QNetwork
 
 
@@ -64,6 +63,11 @@ class DQNAgent(AbstractAgent):
         hidden_dim: int = 64,
         num_hidden_layers: int = 2,
         seed: int = 0,
+        prioritized_replay: bool = False,
+        double_dqn: bool = False,
+        per_alpha: float = 0.6,
+        per_beta: float = 0.4,
+        per_eps: float = 1e-6,
     ) -> None:
         """
         Initialize replay buffer, Q‐networks, optimizer, and hyperparameters.
@@ -121,7 +125,15 @@ class DQNAgent(AbstractAgent):
         self.target_q.load_state_dict(self.q.state_dict())
 
         self.optimizer = optim.Adam(self.q.parameters(), lr=lr)
-        self.buffer = ReplayBuffer(buffer_capacity)
+        self.prioritized_replay = prioritized_replay
+        self.double_dqn = double_dqn
+        self.per_eps = per_eps
+        if prioritized_replay:
+            self.buffer = PrioritizedReplayBuffer(
+                buffer_capacity, alpha=per_alpha, beta=per_beta, eps=per_eps
+            )
+        else:
+            self.buffer = ReplayBuffer(buffer_capacity)
 
         # hyperparams
         self.batch_size = batch_size
@@ -241,12 +253,16 @@ class DQNAgent(AbstractAgent):
             MSE loss value.
         """
         # unpack
-        states, actions, rewards, next_states, dones, _ = zip(*training_batch)
+        states, actions, rewards, next_states, dones, infos = zip(*training_batch)
         s = torch.tensor(np.array(states), dtype=torch.float32)
         a = torch.tensor(np.array(actions), dtype=torch.int64).unsqueeze(1)
         r = torch.tensor(np.array(rewards), dtype=torch.float32)
         s_next = torch.tensor(np.array(next_states), dtype=torch.float32)
         mask = torch.tensor(np.array(dones), dtype=torch.float32)
+        weights = torch.tensor(
+            np.array([info.get("_per_weight", 1.0) for info in infos]),
+            dtype=torch.float32,
+        )
 
         # current Q estimates for taken actions
         # TODO: pass batched states through self.q and gather Q(s,a)
@@ -254,15 +270,25 @@ class DQNAgent(AbstractAgent):
 
         # TODO: compute TD target with frozen network
         with torch.no_grad():
-            max_next_q = self.target_q(s_next).max(dim=1).values
+            if self.double_dqn:
+                next_actions = self.q(s_next).argmax(dim=1, keepdim=True)
+                max_next_q = self.target_q(s_next).gather(1, next_actions).squeeze(1)
+            else:
+                max_next_q = self.target_q(s_next).max(dim=1).values
             target = r + self.gamma * (1.0 - mask) * max_next_q
 
-        loss = nn.MSELoss()(pred, target)
+        td_errors = target - pred
+        loss = (weights * td_errors.pow(2)).mean()
 
         # gradient step
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
+
+        if self.prioritized_replay:
+            indices = np.array([info["_per_index"] for info in infos])
+            priorities = td_errors.detach().abs().numpy() + self.per_eps
+            self.buffer.update_priorities(indices, priorities)
 
         # occasionally sync target network
         if self.total_steps % self.target_update_freq == 0:
@@ -371,6 +397,11 @@ def main(cfg: DictConfig):
         hidden_dim=cfg.agent.hidden_dim,
         num_hidden_layers=cfg.agent.num_hidden_layers,
         seed=cfg.seed,
+        prioritized_replay=cfg.agent.get("prioritized_replay", False),
+        double_dqn=cfg.agent.get("double_dqn", False),
+        per_alpha=cfg.agent.get("per_alpha", 0.6),
+        per_beta=cfg.agent.get("per_beta", 0.4),
+        per_eps=cfg.agent.get("per_eps", 1e-6),
     )
 
     # 3) TODO:instantiate & train
@@ -386,6 +417,8 @@ def main(cfg: DictConfig):
         f"_gamma{cfg.agent.gamma}"
         f"_epsdecay{cfg.agent.epsilon_decay}"
         f"_target{cfg.agent.target_update_freq}"
+        f"_per{cfg.agent.get('prioritized_replay', False)}"
+        f"_double{cfg.agent.get('double_dqn', False)}"
         f"_seed{cfg.seed}"
     )
     plot_title = (
