@@ -1,0 +1,42 @@
+This is the output of the defaut hyperparameters running:
+
+Frame 201, AvgReward(10): 20.10, ε=0.715
+Frame 337, AvgReward(10): 13.60, ε=0.547
+Frame 465, AvgReward(10): 12.80, ε=0.426
+Frame 584, AvgReward(10): 11.90, ε=0.338
+Frame 701, AvgReward(10): 11.70, ε=0.269
+Frame 809, AvgReward(10): 10.80, ε=0.219
+Frame 914, AvgReward(10): 10.50, ε=0.179
+Frame 1021, AvgReward(10): 10.70, ε=0.147
+Frame 1138, AvgReward(10): 11.70, ε=0.118
+Frame 1242, AvgReward(10): 10.40, ε=0.098
+Frame 1348, AvgReward(10): 10.60, ε=0.081
+Frame 1443, AvgReward(10): 9.50, ε=0.069
+Frame 1554, AvgReward(10): 11.10, ε=0.057
+Frame 1650, AvgReward(10): 9.60, ε=0.049
+Frame 1747, AvgReward(10): 9.70, ε=0.042
+Frame 1851, AvgReward(10): 10.40, ε=0.036
+Frame 1953, AvgReward(10): 10.20, ε=0.031
+Frame 2058, AvgReward(10): 10.50, ε=0.027
+Frame 2171, AvgReward(10): 11.30, ε=0.024
+Frame 2276, AvgReward(10): 10.50, ε=0.021
+Frame 2370, AvgReward(10): 9.40, ε=0.019
+Frame 2497, AvgReward(10): 12.70, ε=0.017
+Frame 2621, AvgReward(10): 12.40, ε=0.016
+Frame 2770, AvgReward(10): 14.90, ε=0.014
+Frame 2902, AvgReward(10): 13.20, ε=0.013
+Frame 3031, AvgReward(10): 12.90, ε=0.012
+Frame 3158, AvgReward(10): 12.70, ε=0.012
+Frame 3493, AvgReward(10): 33.50, ε=0.011
+Frame 4029, AvgReward(10): 53.60, ε=0.010
+Frame 5646, AvgReward(10): 161.70, ε=0.010
+Frame 7449, AvgReward(10): 180.30, ε=0.010
+Frame 9666, AvgReward(10): 221.70, ε=0.010
+Frame 11666, AvgReward(10): 200.00, ε=0.010
+Frame 13822, AvgReward(10): 215.60, ε=0.010
+Frame 16107, AvgReward(10): 228.50, ε=0.010
+Frame 18884, AvgReward(10): 277.70, ε=0.010
+Training complete.
+
+
+The baseline DQN initially performed poorly, with average rewards around 10-20 during the first 3000 frames. After around 3500 frames, performance started improving quickly. By the end of training, the agent reached an average reward of about 278 over the last 10 episodes. Epsilon decayed from 1.0 to 0.01, so early training was mostly exploratory while later training mostly followed the learned Q-network.

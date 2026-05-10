@@ -131,10 +131,11 @@ class DQNAgent(AbstractAgent):
         float
             Exploration rate.
         """
-        # TODO: implement exponential‐decayin
         # ε = ε_final + (ε_start - ε_final) * exp(-total_steps / ε_decay)
         # Currently, it is constant and returns the starting value ε
-        return self.epsilon_start
+        return self.epsilon_final + (self.epsilon_start - self.epsilon_final) * np.exp(
+            -self.total_steps / self.epsilon_decay
+        )
 
     def predict_action(
         self, state: np.ndarray, info: Dict[str, Any] = {}, evaluate: bool = False
@@ -162,16 +163,20 @@ class DQNAgent(AbstractAgent):
             # purely greedy
             t = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
             with torch.no_grad():
-                qvals = ...
-            action = None
+                qvals = self.q(t)
+            action = int(torch.argmax(qvals, dim=1).item())
         else:
             # ε-greedy
             if np.random.rand() < self.epsilon():
                 # TODO: sample random action
-                action = None
+                action = int(self.env.action_space.sample())
             else:
                 # TODO: select purely greedy action from Q(s)
-                action = None
+                action = int(
+                    self.q(torch.tensor(state, dtype=torch.float32).unsqueeze(0))
+                    .argmax(dim=1)
+                    .item()
+                )
 
         return action
 
@@ -231,11 +236,12 @@ class DQNAgent(AbstractAgent):
 
         # current Q estimates for taken actions
         # TODO: pass batched states through self.q and gather Q(s,a)
-        pred = ...
+        pred = self.q(s).gather(1, a).squeeze(1)
 
         # TODO: compute TD target with frozen network
         with torch.no_grad():
-            target = ...
+            max_next_q = self.target_q(s_next).max(dim=1).values
+            target = r + self.gamma * (1.0 - mask) * max_next_q
 
         loss = nn.MSELoss()(pred, target)
 
@@ -266,6 +272,7 @@ class DQNAgent(AbstractAgent):
         ep_reward = 0.0
         recent_rewards: List[float] = []
 
+        # enviroment steps
         for frame in range(1, num_frames + 1):
             action = self.predict_action(state)
             next_state, reward, done, truncated, _ = self.env.step(action)
@@ -278,7 +285,7 @@ class DQNAgent(AbstractAgent):
             # update if ready
             if len(self.buffer) >= self.batch_size:
                 # TODO: sample batch from replay buffer
-                batch = ...
+                batch = self.buffer.sample(self.batch_size)
                 _ = self.update_agent(batch)
 
             if done or truncated:
@@ -288,7 +295,7 @@ class DQNAgent(AbstractAgent):
                 # logging
                 if len(recent_rewards) % 10 == 0:
                     # TODO: compute avg over last eval_interval episodes and print
-                    avg = ...
+                    avg = np.mean(recent_rewards[-10:])
                     print(
                         f"Frame {frame}, AvgReward(10): {avg:.2f}, ε={self.epsilon():.3f}"
                     )
@@ -303,12 +310,85 @@ def main(cfg: DictConfig):
     set_seed(env, cfg.seed)
 
     # 2) TODO: map config → agent kwargs
-    agent_kwargs = dict(...)
+    agent_kwargs = dict(
+        buffer_capacity=cfg.agent.buffer_capacity,
+        batch_size=cfg.agent.batch_size,
+        lr=cfg.agent.learning_rate,
+        gamma=cfg.agent.gamma,
+        epsilon_start=cfg.agent.epsilon_start,
+        epsilon_final=cfg.agent.epsilon_final,
+        epsilon_decay=cfg.agent.epsilon_decay,
+        target_update_freq=cfg.agent.target_update_freq,
+        seed=cfg.seed,
+    )
 
     # 3) TODO:instantiate & train
-    agent = ...
-    agent.train(...)
+    agent = DQNAgent(env, **agent_kwargs)
+    agent.train(cfg.train.num_frames, cfg.train.eval_interval)
 
 
 if __name__ == "__main__":
     main()
+
+
+"""
+# environment cart pol v1
+state = [x, x_velocity, angle, angular_velocity] obs_dim = 4
+action = [left, right] n_actions = 2
+
+
+How state updates happen
+
+The simulator integrates these equations over time.
+
+At every timestep:
+
+1. Position update
+
+x(t+1) = x(t) + τ * x_velocity(t)
+
+2. Velocity update
+
+x_velocity(t+1) = x_velocity(t) + τ * x_acceleration(t)
+
+3. Angle update
+
+theta(t+1) = theta(t) + τ * angular_velocity(t)
+
+4. Angular velocity update
+
+angular_velocity(t+1) =
+    angular_velocity(t) + τ * angular_acceleration(t)
+
+Where:
+
+τ = timestep (usually 0.02 seconds)
+
+
+# case one model DQN
+Network trained by gradient descent, updated every step
+input s,
+output Q (s,:), 
+choose action a and Q(s,a), 
+enviroment returns r, s', transition (s, a, r, s'),
+feed to net s', get Q(s',:),
+calculate TD target y = Q (s,a) = r + γ max_a' Q'(s', a')  (from bellman optimality equation)
+caöculate loss = MSE(Q(s,a), y)
+
+
+# model 
+online_network Q_o: trained by gradient descent, updated every step
+target_network Q_t: frozen copy of Q, updated every C steps
+
+step 1: init Q_o, Q_t same weights, init buffers
+step 2: choose random action a, observe r, s', store (s, a, r, s') in buffer
+step 3: sample random batch from buffer
+step 4: forward pass batch through Q_o(s,a) to get Q(s,a)
+step 5: choose action a using greedy, get s',r from enviroment
+step 6: feed s' to Q_o to get Q_o'(s',:), choose action a' and get Q_o'(s', a')
+step 7: feed s' to Q_t to get Q_t'(s',:), choose action a' and get Q_t'(s', a')
+step 8: calculate TD target y = r + γ Q_t'(s', a')
+step 9: calculate loss = MSE(Q_o(s,a), y)
+step 10: gradient descent on Q_o
+step 11: every C steps, update Q_t = Q_o
+"""
