@@ -9,12 +9,16 @@ class QNetwork(nn.Module):
     A simple MLP mapping state → Q‐values for each action.
 
     Architecture:
-      Input → Linear(obs_dim→hidden_dim) → ReLU
-            → Linear(hidden_dim→hidden_dim) → ReLU
-            → Linear(hidden_dim→n_actions)
+      Input → configurable hidden Linear/ReLU layers → Linear(hidden_dim→n_actions)
     """
 
-    def __init__(self, obs_dim: int, n_actions: int, hidden_dim: int = 64) -> None:
+    def __init__(
+        self,
+        obs_dim: int,
+        n_actions: int,
+        hidden_dim: int = 64,
+        num_hidden_layers: int = 2,
+    ) -> None:
         """
         Parameters
         ----------
@@ -24,19 +28,22 @@ class QNetwork(nn.Module):
             Number of discrete actions.
         hidden_dim : int
             Hidden layer size.
+        num_hidden_layers : int
+            Number of hidden Linear/ReLU layers.
         """
         super().__init__()
-        self.net = nn.Sequential(
-            OrderedDict(
-                [
-                    ("fc1", nn.Linear(obs_dim, hidden_dim)),
-                    ("relu1", nn.ReLU()),
-                    ("fc2", nn.Linear(hidden_dim, hidden_dim)),
-                    ("relu2", nn.ReLU()),
-                    ("out", nn.Linear(hidden_dim, n_actions)),
-                ]
-            )
-        )
+        if num_hidden_layers < 1:
+            raise ValueError("num_hidden_layers must be at least 1")
+
+        layers = []
+        input_dim = obs_dim
+        for layer_idx in range(num_hidden_layers):
+            layers.append((f"fc{layer_idx + 1}", nn.Linear(input_dim, hidden_dim)))
+            layers.append((f"relu{layer_idx + 1}", nn.ReLU()))
+            input_dim = hidden_dim
+
+        layers.append(("out", nn.Linear(hidden_dim, n_actions)))
+        self.net = nn.Sequential(OrderedDict(layers))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """

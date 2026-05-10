@@ -61,6 +61,8 @@ class DQNAgent(AbstractAgent):
         epsilon_final: float = 0.01,
         epsilon_decay: int = 500,
         target_update_freq: int = 1000,
+        hidden_dim: int = 64,
+        num_hidden_layers: int = 2,
         seed: int = 0,
     ) -> None:
         """
@@ -86,6 +88,10 @@ class DQNAgent(AbstractAgent):
             Exponential decay parameter.
         target_update_freq : int
             How many updates between target‐network syncs.
+        hidden_dim : int
+            Number of units in each hidden layer.
+        num_hidden_layers : int
+            Number of hidden Linear/ReLU layers in the Q-network.
         seed : int
             RNG seed.
         """
@@ -99,6 +105,8 @@ class DQNAgent(AbstractAgent):
             epsilon_final,
             epsilon_decay,
             target_update_freq,
+            hidden_dim,
+            num_hidden_layers,
             seed,
         )
         self.env = env
@@ -108,8 +116,8 @@ class DQNAgent(AbstractAgent):
         n_actions = env.action_space.n
 
         # main Q‐network and frozen target
-        self.q = QNetwork(obs_dim, n_actions)
-        self.target_q = QNetwork(obs_dim, n_actions)
+        self.q = QNetwork(obs_dim, n_actions, hidden_dim, num_hidden_layers)
+        self.target_q = QNetwork(obs_dim, n_actions, hidden_dim, num_hidden_layers)
         self.target_q.load_state_dict(self.q.state_dict())
 
         self.optimizer = optim.Adam(self.q.parameters(), lr=lr)
@@ -122,6 +130,8 @@ class DQNAgent(AbstractAgent):
         self.epsilon_final = epsilon_final
         self.epsilon_decay = epsilon_decay
         self.target_update_freq = target_update_freq
+        self.hidden_dim = hidden_dim
+        self.num_hidden_layers = num_hidden_layers
 
         self.total_steps = 0  # for ε decay and target sync
         self.training_curve: List[Tuple[int, float]] = []
@@ -358,6 +368,8 @@ def main(cfg: DictConfig):
         epsilon_final=cfg.agent.epsilon_final,
         epsilon_decay=cfg.agent.epsilon_decay,
         target_update_freq=cfg.agent.target_update_freq,
+        hidden_dim=cfg.agent.hidden_dim,
+        num_hidden_layers=cfg.agent.num_hidden_layers,
         seed=cfg.seed,
     )
 
@@ -366,7 +378,9 @@ def main(cfg: DictConfig):
     agent.train(cfg.train.num_frames, cfg.train.eval_interval)
 
     experiment_name = (
-        f"dqn_buffer{cfg.agent.buffer_capacity}"
+        f"dqn_hidden{cfg.agent.hidden_dim}"
+        f"_layers{cfg.agent.num_hidden_layers}"
+        f"_buffer{cfg.agent.buffer_capacity}"
         f"_batch{cfg.agent.batch_size}"
         f"_lr{cfg.agent.learning_rate}"
         f"_gamma{cfg.agent.gamma}"
@@ -376,10 +390,12 @@ def main(cfg: DictConfig):
     )
     plot_title = (
         "DQN training curve\n"
+        f"model: hidden_dim={cfg.agent.hidden_dim}, "
+        f"hidden_layers={cfg.agent.num_hidden_layers}\n"
         f"buffer={cfg.agent.buffer_capacity}, "
         f"batch={cfg.agent.batch_size}, "
-        f"lr={cfg.agent.learning_rate}, "
-        f"gamma={cfg.agent.gamma}\n"
+        f"lr={cfg.agent.learning_rate}\n"
+        f"gamma={cfg.agent.gamma}, "
         f"eps_decay={cfg.agent.epsilon_decay}, "
         f"target_update={cfg.agent.target_update_freq}, "
         f"seed={cfg.seed}"
