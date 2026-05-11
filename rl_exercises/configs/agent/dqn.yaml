@@ -15,6 +15,11 @@ agent:
   epsilon_final:      0.01
   epsilon_decay:      500
   target_update_freq: 1000
+  prioritized_replay: false
+  double_dqn:         false
+  per_alpha:          0.6
+  per_beta:           0.4
+  per_eps:            0.000001
 
 train:
   num_frames:     20000   # total env steps
