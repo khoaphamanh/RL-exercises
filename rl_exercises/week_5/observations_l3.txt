@@ -1,0 +1,25 @@
+Level 3 Observations - DDPG
+
+Environment: Pendulum-v1
+Episodes per method: 30
+
+DDPG implementation:
+DDPG uses an actor network for deterministic continuous actions and a critic network for Q(s, a).
+The critic is trained with a Bellman target y = r + gamma * Q_target(s', actor_target(s')).
+The actor is trained to maximize the critic value, implemented as minimizing -Q(s, actor(s)).
+Target actor and critic networks are updated slowly with Polyak averaging.
+A replay buffer is used so transitions can be reused for many gradient updates.
+
+REINFORCE baseline:
+The baseline uses a Gaussian policy for continuous actions and updates once per episode.
+It directly uses sampled Monte Carlo returns, so the gradient estimate has high variance.
+
+Stability interpretation:
+DDPG is more stable than the original deterministic policy gradient idea because it borrows two important ideas from DQN: replay buffer sampling and target networks.
+The replay buffer reduces correlation between updates, and target networks make the Bellman target move more slowly.
+
+Experiment result:
+Mean return over the last 10 DDPG episodes: -1143.6
+Mean return over the last 10 REINFORCE episodes: -1733.5
+On Pendulum-v1, higher return is better because rewards are negative costs.
+The plot and CSV files in this directory contain the raw comparison curves.
