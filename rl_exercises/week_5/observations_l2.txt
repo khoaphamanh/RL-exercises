@@ -1,0 +1,76 @@
+Level 2 Observations REINFORCE
+
+The raw terminal output for these Level 2 experiments is saved in:
+rl_exercises/week_5/run_output_observations_l2.txt
+
+1. CartPole-v1 baseline
+
+Command:
+python rl_exercises/week_5/policy_gradient.py train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+
+With the default setting, lr=0.01 and hidden_size=128, REINFORCE learned CartPole-v1 very quickly. The evaluation return reached the maximum value of 500 around episode 50-100. However, the result was not stable during the whole run. Around episodes 400-600, evaluation dropped to around 100-125 before recovering again later. By the end of training, the agent again reached AvgReturn 500.0.
+
+This shows the typical high variance behavior of vanilla REINFORCE. The policy can find a good solution, but because every update is based on one sampled trajectory, later updates can still damage the policy.
+
+2. Effect of trajectory length
+
+In this implementation, one batch is one full episode, so one trajectory is:
+
+(s0, a0, r0), (s1, a1, r1), ..., (sT, aT, rT)
+
+For CartPole-v1, reward is 1 per timestep, so the episode return is almost the same as the trajectory length. For example, Return 100 means the trajectory lasted about 100 steps, while Return 500 means the trajectory reached the maximum episode length.
+
+Longer trajectories give more training data in one update, because the loss sums over more log probabilities and advantages. They also mean the policy is already behaving better. However, longer trajectories can also produce larger and noisier policy-gradient updates, because the update depends on the sampled actions from the whole episode. This is why the loss often jumps between positive and negative values even when the return is high.
+
+3. Learning rate experiment
+
+Commands:
+python rl_exercises/week_5/policy_gradient.py agent.lr=0.01 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.lr=0.001 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.lr=0.0005 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+
+Results:
+
+lr=0.01 learned very fast and reached near-optimal evaluation around episode 50-100. However, it was unstable and collapsed later around episodes 400-600 before recovering.
+
+lr=0.001 learned more slowly. It reached high evaluation returns around episode 350-400 and became very strong around episode 700. It was still noisy, but less aggressive than lr=0.01.
+
+lr=0.0005 learned the slowest. It stayed near very low returns for the first 150-200 episodes, improved gradually, and reached strong performance later around episode 750. This learning rate was more conservative but needed more episodes.
+
+Overall, lr=0.01 was fastest but unstable. Smaller learning rates were slower but less aggressive.
+
+4. Network size experiment
+
+Commands:
+python rl_exercises/week_5/policy_gradient.py agent.hidden_size=32 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.hidden_size=128 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.hidden_size=256 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+
+Results:
+
+hidden_size=32 worked well on CartPole. It reached near-perfect evaluation around episode 100 and usually stayed close to the maximum return, although it also had a temporary collapse around episode 450.
+
+hidden_size=128 also worked well and is the default setting. It learned quickly but was unstable with lr=0.01.
+
+hidden_size=256 failed in this run. Evaluation stayed around 9-10 for the full 1000 episodes, and the loss quickly became almost zero. This suggests the policy collapsed to a bad near-deterministic behavior early, so the gradients became too small to recover. With this larger network, the same learning rate was not reliable.
+
+For CartPole, a larger network was not necessary. The small and medium networks were enough.
+
+5. LunarLander-v3 experiment
+
+Command:
+python rl_exercises/week_5/policy_gradient.py env.name=LunarLander-v3 train.episodes=2000 train.eval_interval=100 train.eval_episodes=5
+
+The README mentions LunarLander-v2, but my installed Gymnasium version deprecated v2, so I used LunarLander-v3.
+
+The same architecture and learning rate did not solve LunarLander-v3. The returns were highly unstable. Evaluation improved sometimes, for example reaching AvgReturn 151.5 around episode 1200, but it did not stay there. The final evaluation at episode 2000 was only AvgReturn 45.2 with high variance.
+
+LunarLander is harder than CartPole because the observation and action dynamics are more complex, the rewards are less simple, and a bad action sequence can cause large negative returns. Vanilla REINFORCE has high variance and uses each trajectory only once, so it is not very sample-efficient for this environment with the same hyperparameters.
+
+6. Comparison with DQN
+
+REINFORCE is on-policy. In this implementation, it collects one episode, updates once, and then discards the data. This means every environment step is used only once.
+
+DQN is off-policy and uses a replay buffer. It can reuse old transitions many times, which usually makes it more sample-efficient. DQN also learns a value function, while REINFORCE directly updates the policy from sampled returns. Because sampled returns have high variance, REINFORCE often needs more interaction and is less stable.
+
+Based on these experiments, REINFORCE can solve CartPole-v1, but it is noisy and sensitive to hyperparameters. It does not transfer directly to LunarLander-v3 with the same learning rate and network size.

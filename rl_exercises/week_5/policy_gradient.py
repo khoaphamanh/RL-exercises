@@ -355,13 +355,14 @@ class REINFORCEAgent(AbstractAgent):
         eval_interval : int, optional
             Frequency of evaluation prints (default is 10).
         """
-        eval_env = gym.make(self.env.spec.id)  # fresh copy for eval
+        eval_env = gym.make(self.env.spec.id)
         for ep in range(1, num_episodes + 1):
             state, _ = self.env.reset()
             done = False
             batch: List[Tuple[Any, ...]] = []
 
             while not done:
+                # 1 batch = 1 episode = 1 trajectory = 1 time update agent gradient
                 action, info = self.predict_action(state)
                 next_state, reward, term, trunc, _ = self.env.step(action)
                 done = term or trunc
@@ -429,3 +430,6 @@ def main(cfg: DictConfig) -> None:
 
 if __name__ == "__main__":
     main()
+
+# running command line
+# python rl_exercises/week_5/policy_gradient.py agent.lr=0.001 train.episodes=1000
