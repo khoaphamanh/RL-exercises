@@ -5,6 +5,8 @@ env:
 seed: 0
 
 agent:
+  hidden_dim:         64       # width of each hidden layer
+  num_hidden_layers:  2        # depth: number of hidden layers
   buffer_capacity:    10000    # max replay buffer size
   batch_size:         32       # minibatch size
   learning_rate:      0.001    # maps to DQNAgent’s lr
@@ -13,6 +15,11 @@ agent:
   epsilon_final:      0.01
   epsilon_decay:      500
   target_update_freq: 1000
+  prioritized_replay: false
+  double_dqn:         false
+  per_alpha:          0.6
+  per_beta:           0.4
+  per_eps:            0.000001
 
 train:
   num_frames:     20000   # total env steps

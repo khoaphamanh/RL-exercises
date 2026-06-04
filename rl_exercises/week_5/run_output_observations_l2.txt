@@ -1,0 +1,1123 @@
+This is the baseline output
+
+python rl_exercises/week_5/policy_gradient.py train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.01, 'gamma': 0.99, 'hidden_size': 128}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  21.0 Loss -0.659
+[Train] Ep  20 Return  12.0 Loss -1.042
+[Train] Ep  30 Return  39.0 Loss -0.173
+[Train] Ep  40 Return  53.0 Loss -0.148
+[Train] Ep  50 Return  91.0 Loss 0.837
+[Eval ] Ep  50 AvgReturn 500.0 ±  0.0
+[Train] Ep  60 Return 208.0 Loss 3.401
+[Train] Ep  70 Return 154.0 Loss 0.770
+[Train] Ep  80 Return 500.0 Loss -10.544
+[Train] Ep  90 Return 130.0 Loss 0.992
+[Train] Ep 100 Return 420.0 Loss -2.471
+[Eval ] Ep 100 AvgReturn 500.0 ±  0.0
+[Train] Ep 110 Return 266.0 Loss -2.687
+[Train] Ep 120 Return 394.0 Loss -5.516
+[Train] Ep 130 Return 332.0 Loss -6.052
+[Train] Ep 140 Return 500.0 Loss -0.812
+[Train] Ep 150 Return  27.0 Loss -3.203
+[Eval ] Ep 150 AvgReturn 153.0 ±  6.0
+[Train] Ep 160 Return 171.0 Loss -6.647
+[Train] Ep 170 Return 228.0 Loss -5.489
+[Train] Ep 180 Return 500.0 Loss -15.882
+[Train] Ep 190 Return 500.0 Loss 8.930
+[Train] Ep 200 Return 500.0 Loss -17.881
+[Eval ] Ep 200 AvgReturn 500.0 ±  0.0
+[Train] Ep 210 Return 500.0 Loss 10.967
+[Train] Ep 220 Return 500.0 Loss 3.765
+[Train] Ep 230 Return 500.0 Loss -5.385
+[Train] Ep 240 Return 500.0 Loss 0.918
+[Train] Ep 250 Return 500.0 Loss -5.331
+[Eval ] Ep 250 AvgReturn 500.0 ±  0.0
+[Train] Ep 260 Return 233.0 Loss 7.506
+[Train] Ep 270 Return 500.0 Loss -2.276
+[Train] Ep 280 Return 500.0 Loss -2.407
+[Train] Ep 290 Return 500.0 Loss -16.155
+[Train] Ep 300 Return 500.0 Loss -8.577
+[Eval ] Ep 300 AvgReturn 500.0 ±  0.0
+[Train] Ep 310 Return 500.0 Loss 7.224
+[Train] Ep 320 Return 500.0 Loss 19.619
+[Train] Ep 330 Return 500.0 Loss -1.815
+[Train] Ep 340 Return 500.0 Loss -10.394
+[Train] Ep 350 Return 500.0 Loss 9.889
+[Eval ] Ep 350 AvgReturn 500.0 ±  0.0
+[Train] Ep 360 Return 500.0 Loss -3.074
+[Train] Ep 370 Return 500.0 Loss -3.466
+[Train] Ep 380 Return 500.0 Loss 4.850
+[Train] Ep 390 Return 500.0 Loss -1.692
+[Train] Ep 400 Return 112.0 Loss -0.009
+[Eval ] Ep 400 AvgReturn 114.8 ±  4.1
+[Train] Ep 410 Return 100.0 Loss 0.880
+[Train] Ep 420 Return 103.0 Loss -0.611
+[Train] Ep 430 Return 116.0 Loss 5.070
+[Train] Ep 440 Return 115.0 Loss 3.814
+[Train] Ep 450 Return  99.0 Loss -6.615
+[Eval ] Ep 450 AvgReturn 102.9 ±  3.5
+[Train] Ep 460 Return  95.0 Loss 2.311
+[Train] Ep 470 Return 106.0 Loss 5.848
+[Train] Ep 480 Return  97.0 Loss 2.274
+[Train] Ep 490 Return 106.0 Loss -5.035
+[Train] Ep 500 Return 124.0 Loss 3.379
+[Eval ] Ep 500 AvgReturn 125.8 ±  4.1
+[Train] Ep 510 Return 111.0 Loss 1.234
+[Train] Ep 520 Return  23.0 Loss -2.374
+[Train] Ep 530 Return  49.0 Loss -5.119
+[Train] Ep 540 Return  99.0 Loss 8.252
+[Train] Ep 550 Return 109.0 Loss 11.357
+[Eval ] Ep 550 AvgReturn 111.1 ±  3.8
+[Train] Ep 560 Return 119.0 Loss -6.738
+[Train] Ep 570 Return 116.0 Loss 0.693
+[Train] Ep 580 Return 105.0 Loss 2.504
+[Train] Ep 590 Return 107.0 Loss 8.664
+[Train] Ep 600 Return 111.0 Loss -1.712
+[Eval ] Ep 600 AvgReturn 113.5 ±  5.0
+[Train] Ep 610 Return 132.0 Loss 3.755
+[Train] Ep 620 Return 139.0 Loss -3.613
+[Train] Ep 630 Return 195.0 Loss 1.674
+[Train] Ep 640 Return 176.0 Loss 4.195
+[Train] Ep 650 Return 205.0 Loss -0.749
+[Eval ] Ep 650 AvgReturn 182.1 ± 11.9
+[Train] Ep 660 Return 324.0 Loss 4.909
+[Train] Ep 670 Return 500.0 Loss 4.822
+[Train] Ep 680 Return 500.0 Loss 24.108
+[Train] Ep 690 Return 500.0 Loss 17.923
+[Train] Ep 700 Return 500.0 Loss 9.932
+[Eval ] Ep 700 AvgReturn 500.0 ±  0.0
+[Train] Ep 710 Return 500.0 Loss 14.749
+[Train] Ep 720 Return 500.0 Loss 9.618
+[Train] Ep 730 Return 500.0 Loss 10.888
+[Train] Ep 740 Return 500.0 Loss -4.689
+[Train] Ep 750 Return 500.0 Loss -0.785
+[Eval ] Ep 750 AvgReturn 500.0 ±  0.0
+[Train] Ep 760 Return 500.0 Loss 8.211
+[Train] Ep 770 Return 500.0 Loss 18.769
+[Train] Ep 780 Return 500.0 Loss 8.421
+[Train] Ep 790 Return 500.0 Loss -12.179
+[Train] Ep 800 Return 500.0 Loss 2.463
+[Eval ] Ep 800 AvgReturn 500.0 ±  0.0
+[Train] Ep 810 Return 500.0 Loss -10.306
+[Train] Ep 820 Return 500.0 Loss 0.997
+[Train] Ep 830 Return 500.0 Loss -10.086
+[Train] Ep 840 Return 500.0 Loss -25.630
+[Train] Ep 850 Return 500.0 Loss 8.801
+[Eval ] Ep 850 AvgReturn 500.0 ±  0.0
+[Train] Ep 860 Return 225.0 Loss -2.069
+[Train] Ep 870 Return 230.0 Loss 5.155
+[Train] Ep 880 Return 363.0 Loss -5.058
+[Train] Ep 890 Return 440.0 Loss 3.446
+[Train] Ep 900 Return 500.0 Loss 0.840
+[Eval ] Ep 900 AvgReturn 500.0 ±  0.0
+[Train] Ep 910 Return 500.0 Loss 1.927
+[Train] Ep 920 Return 500.0 Loss -1.971
+[Train] Ep 930 Return 500.0 Loss -8.811
+[Train] Ep 940 Return 500.0 Loss -12.053
+[Train] Ep 950 Return 500.0 Loss 3.257
+[Eval ] Ep 950 AvgReturn 500.0 ±  0.0
+[Train] Ep 960 Return 500.0 Loss -10.465
+[Train] Ep 970 Return 500.0 Loss -11.092
+[Train] Ep 980 Return 500.0 Loss -22.812
+[Train] Ep 990 Return 500.0 Loss 6.397
+[Train] Ep 1000 Return 500.0 Loss -10.215
+[Eval ] Ep 1000 AvgReturn 500.0 ±  0.0
+
+
+
+this is output for changing learning reat 
+
+ python rl_exercises/week_5/policy_gradient.py agent.lr=0.01 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.lr=0.001 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.lr=0.0005 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.01, 'gamma': 0.99, 'hidden_size': 128}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  21.0 Loss -0.659
+[Train] Ep  20 Return  12.0 Loss -1.042
+[Train] Ep  30 Return  39.0 Loss -0.173
+[Train] Ep  40 Return  53.0 Loss -0.148
+[Train] Ep  50 Return  91.0 Loss 0.837
+[Eval ] Ep  50 AvgReturn 498.7 ±  3.9
+[Train] Ep  60 Return 208.0 Loss 3.401
+[Train] Ep  70 Return 154.0 Loss 0.770
+[Train] Ep  80 Return 500.0 Loss -10.544
+[Train] Ep  90 Return 130.0 Loss 0.992
+[Train] Ep 100 Return 420.0 Loss -2.471
+[Eval ] Ep 100 AvgReturn 500.0 ±  0.0
+[Train] Ep 110 Return 266.0 Loss -2.687
+[Train] Ep 120 Return 394.0 Loss -5.516
+[Train] Ep 130 Return 332.0 Loss -6.052
+[Train] Ep 140 Return 500.0 Loss -0.812
+[Train] Ep 150 Return  27.0 Loss -3.203
+[Eval ] Ep 150 AvgReturn 156.3 ±  5.4
+[Train] Ep 160 Return 171.0 Loss -6.647
+[Train] Ep 170 Return 228.0 Loss -5.489
+[Train] Ep 180 Return 500.0 Loss -15.882
+[Train] Ep 190 Return 500.0 Loss 8.930
+[Train] Ep 200 Return 500.0 Loss -17.881
+[Eval ] Ep 200 AvgReturn 500.0 ±  0.0
+[Train] Ep 210 Return 500.0 Loss 10.967
+[Train] Ep 220 Return 500.0 Loss 3.765
+[Train] Ep 230 Return 500.0 Loss -5.385
+[Train] Ep 240 Return 500.0 Loss 0.918
+[Train] Ep 250 Return 500.0 Loss -5.331
+[Eval ] Ep 250 AvgReturn 500.0 ±  0.0
+[Train] Ep 260 Return 233.0 Loss 7.506
+[Train] Ep 270 Return 500.0 Loss -2.276
+[Train] Ep 280 Return 500.0 Loss -2.407
+[Train] Ep 290 Return 500.0 Loss -16.155
+[Train] Ep 300 Return 500.0 Loss -8.577
+[Eval ] Ep 300 AvgReturn 500.0 ±  0.0
+[Train] Ep 310 Return 500.0 Loss 7.224
+[Train] Ep 320 Return 500.0 Loss 19.619
+[Train] Ep 330 Return 500.0 Loss -1.815
+[Train] Ep 340 Return 500.0 Loss -10.394
+[Train] Ep 350 Return 500.0 Loss 9.889
+[Eval ] Ep 350 AvgReturn 500.0 ±  0.0
+[Train] Ep 360 Return 500.0 Loss -3.074
+[Train] Ep 370 Return 500.0 Loss -3.466
+[Train] Ep 380 Return 500.0 Loss 4.850
+[Train] Ep 390 Return 500.0 Loss -1.692
+[Train] Ep 400 Return 112.0 Loss -0.009
+[Eval ] Ep 400 AvgReturn 114.4 ±  3.0
+[Train] Ep 410 Return 100.0 Loss 0.880
+[Train] Ep 420 Return 103.0 Loss -0.611
+[Train] Ep 430 Return 116.0 Loss 5.070
+[Train] Ep 440 Return 115.0 Loss 3.814
+[Train] Ep 450 Return  99.0 Loss -6.615
+[Eval ] Ep 450 AvgReturn 105.5 ±  4.1
+[Train] Ep 460 Return  95.0 Loss 2.311
+[Train] Ep 470 Return 106.0 Loss 5.848
+[Train] Ep 480 Return  97.0 Loss 2.274
+[Train] Ep 490 Return 106.0 Loss -5.035
+[Train] Ep 500 Return 124.0 Loss 3.379
+[Eval ] Ep 500 AvgReturn 123.6 ±  4.6
+[Train] Ep 510 Return 111.0 Loss 1.234
+[Train] Ep 520 Return  23.0 Loss -2.374
+[Train] Ep 530 Return  49.0 Loss -5.119
+[Train] Ep 540 Return  99.0 Loss 8.252
+[Train] Ep 550 Return 109.0 Loss 11.357
+[Eval ] Ep 550 AvgReturn 111.8 ±  4.9
+[Train] Ep 560 Return 119.0 Loss -6.738
+[Train] Ep 570 Return 116.0 Loss 0.693
+[Train] Ep 580 Return 105.0 Loss 2.504
+[Train] Ep 590 Return 107.0 Loss 8.664
+[Train] Ep 600 Return 111.0 Loss -1.712
+[Eval ] Ep 600 AvgReturn 114.0 ±  3.3
+[Train] Ep 610 Return 132.0 Loss 3.755
+[Train] Ep 620 Return 139.0 Loss -3.613
+[Train] Ep 630 Return 195.0 Loss 1.674
+[Train] Ep 640 Return 176.0 Loss 4.195
+[Train] Ep 650 Return 205.0 Loss -0.749
+[Eval ] Ep 650 AvgReturn 184.6 ± 10.0
+[Train] Ep 660 Return 324.0 Loss 4.909
+[Train] Ep 670 Return 500.0 Loss 4.822
+[Train] Ep 680 Return 500.0 Loss 24.108
+[Train] Ep 690 Return 500.0 Loss 17.923
+[Train] Ep 700 Return 500.0 Loss 9.932
+[Eval ] Ep 700 AvgReturn 500.0 ±  0.0
+[Train] Ep 710 Return 500.0 Loss 14.749
+[Train] Ep 720 Return 500.0 Loss 9.618
+[Train] Ep 730 Return 500.0 Loss 10.888
+[Train] Ep 740 Return 500.0 Loss -4.689
+[Train] Ep 750 Return 500.0 Loss -0.785
+[Eval ] Ep 750 AvgReturn 500.0 ±  0.0
+[Train] Ep 760 Return 500.0 Loss 8.211
+[Train] Ep 770 Return 500.0 Loss 18.769
+[Train] Ep 780 Return 500.0 Loss 8.421
+[Train] Ep 790 Return 500.0 Loss -12.179
+[Train] Ep 800 Return 500.0 Loss 2.463
+[Eval ] Ep 800 AvgReturn 500.0 ±  0.0
+[Train] Ep 810 Return 500.0 Loss -10.306
+[Train] Ep 820 Return 500.0 Loss 0.997
+[Train] Ep 830 Return 500.0 Loss -10.086
+[Train] Ep 840 Return 500.0 Loss -25.630
+[Train] Ep 850 Return 500.0 Loss 8.801
+[Eval ] Ep 850 AvgReturn 500.0 ±  0.0
+[Train] Ep 860 Return 225.0 Loss -2.069
+[Train] Ep 870 Return 230.0 Loss 5.155
+[Train] Ep 880 Return 363.0 Loss -5.058
+[Train] Ep 890 Return 440.0 Loss 3.446
+[Train] Ep 900 Return 500.0 Loss 0.840
+[Eval ] Ep 900 AvgReturn 500.0 ±  0.0
+[Train] Ep 910 Return 500.0 Loss 1.927
+[Train] Ep 920 Return 500.0 Loss -1.971
+[Train] Ep 930 Return 500.0 Loss -8.811
+[Train] Ep 940 Return 500.0 Loss -12.053
+[Train] Ep 950 Return 500.0 Loss 3.257
+[Eval ] Ep 950 AvgReturn 500.0 ±  0.0
+[Train] Ep 960 Return 500.0 Loss -10.465
+[Train] Ep 970 Return 500.0 Loss -11.092
+[Train] Ep 980 Return 500.0 Loss -22.812
+[Train] Ep 990 Return 500.0 Loss 6.397
+[Train] Ep 1000 Return 500.0 Loss -10.215
+[Eval ] Ep 1000 AvgReturn 500.0 ±  0.0
+Training complete.
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.001, 'gamma': 0.99, 'hidden_size': 128}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  28.0 Loss -0.265
+[Train] Ep  20 Return  15.0 Loss 0.835
+[Train] Ep  30 Return  16.0 Loss -0.044
+[Train] Ep  40 Return  28.0 Loss 0.146
+[Train] Ep  50 Return  22.0 Loss -0.067
+[Eval ] Ep  50 AvgReturn  10.2 ±  2.1
+[Train] Ep  60 Return   9.0 Loss 0.180
+[Train] Ep  70 Return  15.0 Loss -0.207
+[Train] Ep  80 Return  34.0 Loss -1.105
+[Train] Ep  90 Return  19.0 Loss 0.347
+[Train] Ep 100 Return  30.0 Loss -1.924
+[Eval ] Ep 100 AvgReturn 188.9 ± 44.8
+[Train] Ep 110 Return  37.0 Loss -0.333
+[Train] Ep 120 Return  91.0 Loss 0.143
+[Train] Ep 130 Return  22.0 Loss -1.690
+[Train] Ep 140 Return  19.0 Loss -2.515
+[Train] Ep 150 Return  18.0 Loss -1.055
+[Eval ] Ep 150 AvgReturn 146.2 ± 27.0
+[Train] Ep 160 Return  56.0 Loss -0.654
+[Train] Ep 170 Return  31.0 Loss -3.179
+[Train] Ep 180 Return  84.0 Loss -2.249
+[Train] Ep 190 Return 195.0 Loss -1.058
+[Train] Ep 200 Return 167.0 Loss -0.334
+[Eval ] Ep 200 AvgReturn 238.0 ± 162.8
+[Train] Ep 210 Return  52.0 Loss 0.472
+[Train] Ep 220 Return 133.0 Loss -0.691
+[Train] Ep 230 Return 127.0 Loss -2.954
+[Train] Ep 240 Return  54.0 Loss 0.260
+[Train] Ep 250 Return  68.0 Loss -0.046
+[Eval ] Ep 250 AvgReturn 308.7 ± 120.9
+[Train] Ep 260 Return 113.0 Loss 1.915
+[Train] Ep 270 Return 154.0 Loss 0.681
+[Train] Ep 280 Return 192.0 Loss 0.521
+[Train] Ep 290 Return  41.0 Loss -6.236
+[Train] Ep 300 Return 125.0 Loss -1.779
+[Eval ] Ep 300 AvgReturn 331.9 ± 90.3
+[Train] Ep 310 Return 159.0 Loss -4.155
+[Train] Ep 320 Return 176.0 Loss 1.568
+[Train] Ep 330 Return 177.0 Loss 2.221
+[Train] Ep 340 Return 133.0 Loss -1.222
+[Train] Ep 350 Return 135.0 Loss -0.604
+[Eval ] Ep 350 AvgReturn 467.0 ± 66.0
+[Train] Ep 360 Return 132.0 Loss 2.174
+[Train] Ep 370 Return 389.0 Loss -6.963
+[Train] Ep 380 Return 202.0 Loss -7.000
+[Train] Ep 390 Return 222.0 Loss -5.061
+[Train] Ep 400 Return 199.0 Loss -8.304
+[Eval ] Ep 400 AvgReturn 499.8 ±  0.6
+[Train] Ep 410 Return 500.0 Loss -1.641
+[Train] Ep 420 Return 365.0 Loss -0.823
+[Train] Ep 430 Return 469.0 Loss -14.634
+[Train] Ep 440 Return 202.0 Loss -0.060
+[Train] Ep 450 Return 250.0 Loss -2.342
+[Eval ] Ep 450 AvgReturn 396.4 ± 71.2
+[Train] Ep 460 Return 239.0 Loss 4.089
+[Train] Ep 470 Return 500.0 Loss -3.161
+[Train] Ep 480 Return 500.0 Loss 0.741
+[Train] Ep 490 Return 500.0 Loss -9.689
+[Train] Ep 500 Return 500.0 Loss 2.857
+[Eval ] Ep 500 AvgReturn 475.4 ± 47.0
+[Train] Ep 510 Return 500.0 Loss -0.384
+[Train] Ep 520 Return 500.0 Loss 4.046
+[Train] Ep 530 Return 500.0 Loss -8.442
+[Train] Ep 540 Return 455.0 Loss 0.174
+[Train] Ep 550 Return 296.0 Loss -2.601
+[Eval ] Ep 550 AvgReturn 280.1 ± 54.8
+[Train] Ep 560 Return 281.0 Loss -2.146
+[Train] Ep 570 Return 326.0 Loss 5.381
+[Train] Ep 580 Return 330.0 Loss -16.549
+[Train] Ep 590 Return 149.0 Loss -6.965
+[Train] Ep 600 Return 289.0 Loss -3.409
+[Eval ] Ep 600 AvgReturn 451.6 ± 77.6
+[Train] Ep 610 Return 500.0 Loss -7.169
+[Train] Ep 620 Return 485.0 Loss -6.126
+[Train] Ep 630 Return 475.0 Loss 4.426
+[Train] Ep 640 Return 500.0 Loss -8.608
+[Train] Ep 650 Return 500.0 Loss -7.397
+[Eval ] Ep 650 AvgReturn 493.8 ± 18.6
+[Train] Ep 660 Return 500.0 Loss -0.402
+[Train] Ep 670 Return 500.0 Loss 4.702
+[Train] Ep 680 Return 500.0 Loss 9.438
+[Train] Ep 690 Return 500.0 Loss 5.613
+[Train] Ep 700 Return 500.0 Loss 0.512
+[Eval ] Ep 700 AvgReturn 500.0 ±  0.0
+[Train] Ep 710 Return 500.0 Loss -3.729
+[Train] Ep 720 Return 500.0 Loss -3.668
+[Train] Ep 730 Return 500.0 Loss -14.341
+[Train] Ep 740 Return 500.0 Loss 1.966
+[Train] Ep 750 Return 500.0 Loss -0.219
+[Eval ] Ep 750 AvgReturn 500.0 ±  0.0
+[Train] Ep 760 Return 487.0 Loss -8.921
+[Train] Ep 770 Return 500.0 Loss -1.166
+[Train] Ep 780 Return 281.0 Loss 8.044
+[Train] Ep 790 Return 500.0 Loss 6.592
+[Train] Ep 800 Return 308.0 Loss 6.213
+[Eval ] Ep 800 AvgReturn 500.0 ±  0.0
+[Train] Ep 810 Return 500.0 Loss 3.607
+[Train] Ep 820 Return 430.0 Loss -6.803
+[Train] Ep 830 Return 500.0 Loss 4.029
+[Train] Ep 840 Return 375.0 Loss -2.898
+[Train] Ep 850 Return 500.0 Loss -3.561
+[Eval ] Ep 850 AvgReturn 500.0 ±  0.0
+[Train] Ep 860 Return 500.0 Loss -5.037
+[Train] Ep 870 Return 500.0 Loss -3.503
+[Train] Ep 880 Return 500.0 Loss 3.992
+[Train] Ep 890 Return 445.0 Loss -17.322
+[Train] Ep 900 Return 500.0 Loss -8.976
+[Eval ] Ep 900 AvgReturn 491.1 ± 19.1
+[Train] Ep 910 Return 500.0 Loss -9.913
+[Train] Ep 920 Return 500.0 Loss -8.384
+[Train] Ep 930 Return 500.0 Loss 3.450
+[Train] Ep 940 Return 500.0 Loss 0.201
+[Train] Ep 950 Return 500.0 Loss 11.294
+[Eval ] Ep 950 AvgReturn 500.0 ±  0.0
+[Train] Ep 960 Return 500.0 Loss 5.853
+[Train] Ep 970 Return 500.0 Loss 0.290
+[Train] Ep 980 Return 500.0 Loss -1.807
+[Train] Ep 990 Return 500.0 Loss 9.943
+[Train] Ep 1000 Return 392.0 Loss -9.660
+[Eval ] Ep 1000 AvgReturn 500.0 ±  0.0
+Training complete.
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.0005, 'gamma': 0.99, 'hidden_size': 128}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  10.0 Loss 0.471
+[Train] Ep  20 Return  23.0 Loss 0.120
+[Train] Ep  30 Return  21.0 Loss 1.647
+[Train] Ep  40 Return  28.0 Loss 0.142
+[Train] Ep  50 Return  12.0 Loss -0.233
+[Eval ] Ep  50 AvgReturn   9.2 ±  0.6
+[Train] Ep  60 Return  10.0 Loss 0.525
+[Train] Ep  70 Return  12.0 Loss -0.064
+[Train] Ep  80 Return  11.0 Loss -0.405
+[Train] Ep  90 Return  17.0 Loss -0.364
+[Train] Ep 100 Return  39.0 Loss -0.283
+[Eval ] Ep 100 AvgReturn   9.1 ±  0.8
+[Train] Ep 110 Return  13.0 Loss -0.319
+[Train] Ep 120 Return  22.0 Loss -0.216
+[Train] Ep 130 Return  13.0 Loss 0.949
+[Train] Ep 140 Return  10.0 Loss 0.827
+[Train] Ep 150 Return  19.0 Loss -0.430
+[Eval ] Ep 150 AvgReturn   9.3 ±  0.8
+[Train] Ep 160 Return  11.0 Loss -0.329
+[Train] Ep 170 Return  15.0 Loss -0.026
+[Train] Ep 180 Return  13.0 Loss 0.352
+[Train] Ep 190 Return  13.0 Loss 0.370
+[Train] Ep 200 Return  14.0 Loss 0.863
+[Eval ] Ep 200 AvgReturn  79.7 ± 33.7
+[Train] Ep 210 Return  72.0 Loss -0.330
+[Train] Ep 220 Return  14.0 Loss 0.274
+[Train] Ep 230 Return  16.0 Loss -0.932
+[Train] Ep 240 Return  10.0 Loss 1.557
+[Train] Ep 250 Return  25.0 Loss 0.647
+[Eval ] Ep 250 AvgReturn 142.3 ± 60.2
+[Train] Ep 260 Return  26.0 Loss -1.281
+[Train] Ep 270 Return  34.0 Loss -0.333
+[Train] Ep 280 Return  45.0 Loss -0.578
+[Train] Ep 290 Return  86.0 Loss -0.595
+[Train] Ep 300 Return  65.0 Loss -0.726
+[Eval ] Ep 300 AvgReturn 248.5 ± 150.9
+[Train] Ep 310 Return  51.0 Loss 1.242
+[Train] Ep 320 Return  87.0 Loss -0.397
+[Train] Ep 330 Return  49.0 Loss -3.330
+[Train] Ep 340 Return  21.0 Loss 0.353
+[Train] Ep 350 Return  41.0 Loss -2.536
+[Eval ] Ep 350 AvgReturn 332.8 ± 105.8
+[Train] Ep 360 Return  50.0 Loss 0.387
+[Train] Ep 370 Return  58.0 Loss 0.640
+[Train] Ep 380 Return  67.0 Loss -0.384
+[Train] Ep 390 Return  80.0 Loss 1.589
+[Train] Ep 400 Return  36.0 Loss 0.111
+[Eval ] Ep 400 AvgReturn 214.9 ± 49.6
+[Train] Ep 410 Return  38.0 Loss -1.159
+[Train] Ep 420 Return 104.0 Loss 0.962
+[Train] Ep 430 Return 113.0 Loss 0.256
+[Train] Ep 440 Return 116.0 Loss 1.195
+[Train] Ep 450 Return  84.0 Loss 2.592
+[Eval ] Ep 450 AvgReturn 397.4 ± 88.9
+[Train] Ep 460 Return  36.0 Loss -4.386
+[Train] Ep 470 Return 330.0 Loss -0.967
+[Train] Ep 480 Return 147.0 Loss -0.185
+[Train] Ep 490 Return 227.0 Loss -0.651
+[Train] Ep 500 Return 146.0 Loss -1.123
+[Eval ] Ep 500 AvgReturn 362.2 ± 90.7
+[Train] Ep 510 Return  92.0 Loss -5.789
+[Train] Ep 520 Return  89.0 Loss 2.682
+[Train] Ep 530 Return 309.0 Loss -4.812
+[Train] Ep 540 Return 184.0 Loss 0.831
+[Train] Ep 550 Return 163.0 Loss -2.425
+[Eval ] Ep 550 AvgReturn 276.3 ± 127.3
+[Train] Ep 560 Return 223.0 Loss -1.305
+[Train] Ep 570 Return 169.0 Loss 0.214
+[Train] Ep 580 Return 127.0 Loss -1.238
+[Train] Ep 590 Return 138.0 Loss -0.587
+[Train] Ep 600 Return  62.0 Loss -3.543
+[Eval ] Ep 600 AvgReturn 474.8 ± 52.0
+[Train] Ep 610 Return  60.0 Loss -2.184
+[Train] Ep 620 Return 132.0 Loss -3.390
+[Train] Ep 630 Return 200.0 Loss -6.155
+[Train] Ep 640 Return 189.0 Loss -1.273
+[Train] Ep 650 Return 238.0 Loss 3.032
+[Eval ] Ep 650 AvgReturn 490.1 ± 22.2
+[Train] Ep 660 Return 492.0 Loss -18.594
+[Train] Ep 670 Return 171.0 Loss 0.606
+[Train] Ep 680 Return 127.0 Loss 0.002
+[Train] Ep 690 Return 175.0 Loss -4.271
+[Train] Ep 700 Return 490.0 Loss 0.339
+[Eval ] Ep 700 AvgReturn 429.1 ± 67.1
+[Train] Ep 710 Return  88.0 Loss -4.884
+[Train] Ep 720 Return 245.0 Loss 1.196
+[Train] Ep 730 Return 348.0 Loss -1.134
+[Train] Ep 740 Return 232.0 Loss -10.317
+[Train] Ep 750 Return 406.0 Loss -10.096
+[Eval ] Ep 750 AvgReturn 500.0 ±  0.0
+[Train] Ep 760 Return 162.0 Loss -2.104
+[Train] Ep 770 Return 500.0 Loss -0.308
+[Train] Ep 780 Return 481.0 Loss -2.600
+[Train] Ep 790 Return 500.0 Loss -1.565
+[Train] Ep 800 Return 204.0 Loss -1.859
+[Eval ] Ep 800 AvgReturn 498.1 ±  5.7
+[Train] Ep 810 Return 220.0 Loss -8.402
+[Train] Ep 820 Return 500.0 Loss -2.098
+[Train] Ep 830 Return 323.0 Loss -9.867
+[Train] Ep 840 Return 143.0 Loss -6.562
+[Train] Ep 850 Return 144.0 Loss 2.825
+[Eval ] Ep 850 AvgReturn 500.0 ±  0.0
+[Train] Ep 860 Return 164.0 Loss -0.961
+[Train] Ep 870 Return 500.0 Loss -2.438
+[Train] Ep 880 Return 158.0 Loss -1.513
+[Train] Ep 890 Return 204.0 Loss -4.777
+[Train] Ep 900 Return 475.0 Loss -2.386
+[Eval ] Ep 900 AvgReturn 500.0 ±  0.0
+[Train] Ep 910 Return 474.0 Loss -1.500
+[Train] Ep 920 Return 412.0 Loss 6.526
+[Train] Ep 930 Return 420.0 Loss 1.613
+[Train] Ep 940 Return 500.0 Loss -2.377
+[Train] Ep 950 Return 500.0 Loss 0.250
+[Eval ] Ep 950 AvgReturn 500.0 ±  0.0
+[Train] Ep 960 Return 500.0 Loss 7.103
+[Train] Ep 970 Return 361.0 Loss -7.214
+[Train] Ep 980 Return 295.0 Loss -11.452
+[Train] Ep 990 Return 267.0 Loss -1.168
+[Train] Ep 1000 Return 412.0 Loss 0.459
+[Eval ] Ep 1000 AvgReturn 500.0 ±  0.0
+Training complete.
+
+
+this is output for changing model size
+
+python rl_exercises/week_5/policy_gradient.py agent.hidden_size=32 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.hidden_size=128 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+python rl_exercises/week_5/policy_gradient.py agent.hidden_size=256 train.episodes=1000 train.eval_interval=50 train.eval_episodes=10
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.01, 'gamma': 0.99, 'hidden_size': 32}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  18.0 Loss -0.210
+[Train] Ep  20 Return  17.0 Loss -0.303
+[Train] Ep  30 Return  89.0 Loss -0.291
+[Train] Ep  40 Return  18.0 Loss -0.586
+[Train] Ep  50 Return  41.0 Loss 0.669
+[Eval ] Ep  50 AvgReturn  87.9 ± 55.2
+[Train] Ep  60 Return  54.0 Loss 0.596
+[Train] Ep  70 Return  88.0 Loss -1.601
+[Train] Ep  80 Return 127.0 Loss 3.594
+[Train] Ep  90 Return 327.0 Loss -6.313
+[Train] Ep 100 Return 193.0 Loss 1.194
+[Eval ] Ep 100 AvgReturn 499.8 ±  0.6
+[Train] Ep 110 Return 221.0 Loss -7.918
+[Train] Ep 120 Return 112.0 Loss 1.086
+[Train] Ep 130 Return  51.0 Loss 1.697
+[Train] Ep 140 Return  54.0 Loss -2.566
+[Train] Ep 150 Return  92.0 Loss -1.023
+[Eval ] Ep 150 AvgReturn 115.3 ±  7.9
+[Train] Ep 160 Return 141.0 Loss -1.654
+[Train] Ep 170 Return 155.0 Loss -1.770
+[Train] Ep 180 Return 420.0 Loss -2.453
+[Train] Ep 190 Return 500.0 Loss -5.069
+[Train] Ep 200 Return 500.0 Loss 3.938
+[Eval ] Ep 200 AvgReturn 500.0 ±  0.0
+[Train] Ep 210 Return 303.0 Loss -4.179
+[Train] Ep 220 Return 404.0 Loss -3.401
+[Train] Ep 230 Return 442.0 Loss -1.096
+[Train] Ep 240 Return 500.0 Loss -3.624
+[Train] Ep 250 Return 500.0 Loss -3.848
+[Eval ] Ep 250 AvgReturn 500.0 ±  0.0
+[Train] Ep 260 Return 500.0 Loss 12.601
+[Train] Ep 270 Return 500.0 Loss -14.859
+[Train] Ep 280 Return 500.0 Loss 7.444
+[Train] Ep 290 Return 500.0 Loss 20.430
+[Train] Ep 300 Return 500.0 Loss 13.822
+[Eval ] Ep 300 AvgReturn 500.0 ±  0.0
+[Train] Ep 310 Return 500.0 Loss -2.042
+[Train] Ep 320 Return 500.0 Loss 5.856
+[Train] Ep 330 Return 500.0 Loss 8.500
+[Train] Ep 340 Return 500.0 Loss 10.122
+[Train] Ep 350 Return 500.0 Loss 7.956
+[Eval ] Ep 350 AvgReturn 500.0 ±  0.0
+[Train] Ep 360 Return 500.0 Loss -4.734
+[Train] Ep 370 Return 500.0 Loss 7.028
+[Train] Ep 380 Return 500.0 Loss 0.794
+[Train] Ep 390 Return 500.0 Loss -4.693
+[Train] Ep 400 Return 500.0 Loss -0.580
+[Eval ] Ep 400 AvgReturn 500.0 ±  0.0
+[Train] Ep 410 Return 500.0 Loss 2.143
+[Train] Ep 420 Return 500.0 Loss 4.742
+[Train] Ep 430 Return 394.0 Loss 3.558
+[Train] Ep 440 Return 500.0 Loss 2.325
+[Train] Ep 450 Return  50.0 Loss -6.027
+[Eval ] Ep 450 AvgReturn 268.2 ±  2.4
+[Train] Ep 460 Return 283.0 Loss -1.735
+[Train] Ep 470 Return 280.0 Loss -3.390
+[Train] Ep 480 Return 339.0 Loss -0.163
+[Train] Ep 490 Return 284.0 Loss -5.505
+[Train] Ep 500 Return 486.0 Loss -20.315
+[Eval ] Ep 500 AvgReturn 500.0 ±  0.0
+[Train] Ep 510 Return 500.0 Loss 7.762
+[Train] Ep 520 Return 500.0 Loss 1.176
+[Train] Ep 530 Return 500.0 Loss 3.993
+[Train] Ep 540 Return 500.0 Loss -7.702
+[Train] Ep 550 Return 500.0 Loss 3.441
+[Eval ] Ep 550 AvgReturn 500.0 ±  0.0
+[Train] Ep 560 Return 500.0 Loss -11.552
+[Train] Ep 570 Return 500.0 Loss -4.795
+[Train] Ep 580 Return 500.0 Loss -6.525
+[Train] Ep 590 Return 500.0 Loss 6.313
+[Train] Ep 600 Return 500.0 Loss 0.686
+[Eval ] Ep 600 AvgReturn 500.0 ±  0.0
+[Train] Ep 610 Return 500.0 Loss 14.937
+[Train] Ep 620 Return 500.0 Loss -15.269
+[Train] Ep 630 Return 500.0 Loss 3.917
+[Train] Ep 640 Return 500.0 Loss -15.049
+[Train] Ep 650 Return 500.0 Loss -0.650
+[Eval ] Ep 650 AvgReturn 500.0 ±  0.0
+[Train] Ep 660 Return 500.0 Loss 8.070
+[Train] Ep 670 Return 500.0 Loss 5.846
+[Train] Ep 680 Return 500.0 Loss 0.192
+[Train] Ep 690 Return 500.0 Loss -1.922
+[Train] Ep 700 Return 500.0 Loss -11.513
+[Eval ] Ep 700 AvgReturn 500.0 ±  0.0
+[Train] Ep 710 Return 500.0 Loss -19.378
+[Train] Ep 720 Return 500.0 Loss 0.906
+[Train] Ep 730 Return 500.0 Loss -12.103
+[Train] Ep 740 Return 500.0 Loss 7.850
+[Train] Ep 750 Return 500.0 Loss 8.105
+[Eval ] Ep 750 AvgReturn 500.0 ±  0.0
+[Train] Ep 760 Return 500.0 Loss 1.198
+[Train] Ep 770 Return 500.0 Loss -5.635
+[Train] Ep 780 Return 500.0 Loss 1.657
+[Train] Ep 790 Return 500.0 Loss -8.030
+[Train] Ep 800 Return 500.0 Loss -5.203
+[Eval ] Ep 800 AvgReturn 500.0 ±  0.0
+[Train] Ep 810 Return 500.0 Loss -5.667
+[Train] Ep 820 Return 500.0 Loss 9.194
+[Train] Ep 830 Return 500.0 Loss 22.218
+[Train] Ep 840 Return 500.0 Loss -10.825
+[Train] Ep 850 Return 500.0 Loss 6.737
+[Eval ] Ep 850 AvgReturn 500.0 ±  0.0
+[Train] Ep 860 Return 500.0 Loss 14.191
+[Train] Ep 870 Return 500.0 Loss -10.021
+[Train] Ep 880 Return 500.0 Loss 7.855
+[Train] Ep 890 Return 500.0 Loss 0.434
+[Train] Ep 900 Return 500.0 Loss 9.515
+[Eval ] Ep 900 AvgReturn 500.0 ±  0.0
+[Train] Ep 910 Return 500.0 Loss 21.858
+[Train] Ep 920 Return 500.0 Loss -4.941
+[Train] Ep 930 Return 500.0 Loss 12.733
+[Train] Ep 940 Return 500.0 Loss -1.954
+[Train] Ep 950 Return 500.0 Loss 14.428
+[Eval ] Ep 950 AvgReturn 500.0 ±  0.0
+[Train] Ep 960 Return 500.0 Loss -4.468
+[Train] Ep 970 Return 500.0 Loss -8.991
+[Train] Ep 980 Return 500.0 Loss -2.534
+[Train] Ep 990 Return 500.0 Loss -0.721
+[Train] Ep 1000 Return 500.0 Loss 2.316
+[Eval ] Ep 1000 AvgReturn 500.0 ±  0.0
+Training complete.
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.01, 'gamma': 0.99, 'hidden_size': 128}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  21.0 Loss -0.659
+[Train] Ep  20 Return  12.0 Loss -1.042
+[Train] Ep  30 Return  39.0 Loss -0.173
+[Train] Ep  40 Return  53.0 Loss -0.148
+[Train] Ep  50 Return  91.0 Loss 0.837
+[Eval ] Ep  50 AvgReturn 451.1 ± 75.6
+[Train] Ep  60 Return 208.0 Loss 3.401
+[Train] Ep  70 Return 154.0 Loss 0.770
+[Train] Ep  80 Return 500.0 Loss -10.544
+[Train] Ep  90 Return 130.0 Loss 0.992
+[Train] Ep 100 Return 420.0 Loss -2.471
+[Eval ] Ep 100 AvgReturn 500.0 ±  0.0
+[Train] Ep 110 Return 266.0 Loss -2.687
+[Train] Ep 120 Return 394.0 Loss -5.516
+[Train] Ep 130 Return 332.0 Loss -6.052
+[Train] Ep 140 Return 500.0 Loss -0.812
+[Train] Ep 150 Return  27.0 Loss -3.203
+[Eval ] Ep 150 AvgReturn 158.1 ±  6.3
+[Train] Ep 160 Return 171.0 Loss -6.647
+[Train] Ep 170 Return 228.0 Loss -5.489
+[Train] Ep 180 Return 500.0 Loss -15.882
+[Train] Ep 190 Return 500.0 Loss 8.930
+[Train] Ep 200 Return 500.0 Loss -17.881
+[Eval ] Ep 200 AvgReturn 500.0 ±  0.0
+[Train] Ep 210 Return 500.0 Loss 10.967
+[Train] Ep 220 Return 500.0 Loss 3.765
+[Train] Ep 230 Return 500.0 Loss -5.385
+[Train] Ep 240 Return 500.0 Loss 0.918
+[Train] Ep 250 Return 500.0 Loss -5.331
+[Eval ] Ep 250 AvgReturn 500.0 ±  0.0
+[Train] Ep 260 Return 233.0 Loss 7.506
+[Train] Ep 270 Return 500.0 Loss -2.276
+[Train] Ep 280 Return 500.0 Loss -2.407
+[Train] Ep 290 Return 500.0 Loss -16.155
+[Train] Ep 300 Return 500.0 Loss -8.577
+[Eval ] Ep 300 AvgReturn 500.0 ±  0.0
+[Train] Ep 310 Return 500.0 Loss 7.224
+[Train] Ep 320 Return 500.0 Loss 19.619
+[Train] Ep 330 Return 500.0 Loss -1.815
+[Train] Ep 340 Return 500.0 Loss -10.394
+[Train] Ep 350 Return 500.0 Loss 9.889
+[Eval ] Ep 350 AvgReturn 500.0 ±  0.0
+[Train] Ep 360 Return 500.0 Loss -3.074
+[Train] Ep 370 Return 500.0 Loss -3.466
+[Train] Ep 380 Return 500.0 Loss 4.850
+[Train] Ep 390 Return 500.0 Loss -1.692
+[Train] Ep 400 Return 112.0 Loss -0.009
+[Eval ] Ep 400 AvgReturn 112.4 ±  2.7
+[Train] Ep 410 Return 100.0 Loss 0.880
+[Train] Ep 420 Return 103.0 Loss -0.611
+[Train] Ep 430 Return 116.0 Loss 5.070
+[Train] Ep 440 Return 115.0 Loss 3.814
+[Train] Ep 450 Return  99.0 Loss -6.615
+[Eval ] Ep 450 AvgReturn 101.4 ±  3.5
+[Train] Ep 460 Return  95.0 Loss 2.311
+[Train] Ep 470 Return 106.0 Loss 5.848
+[Train] Ep 480 Return  97.0 Loss 2.274
+[Train] Ep 490 Return 106.0 Loss -5.035
+[Train] Ep 500 Return 124.0 Loss 3.379
+[Eval ] Ep 500 AvgReturn 124.7 ±  4.2
+[Train] Ep 510 Return 111.0 Loss 1.234
+[Train] Ep 520 Return  23.0 Loss -2.374
+[Train] Ep 530 Return  49.0 Loss -5.119
+[Train] Ep 540 Return  99.0 Loss 8.252
+[Train] Ep 550 Return 109.0 Loss 11.357
+[Eval ] Ep 550 AvgReturn 115.0 ±  3.7
+[Train] Ep 560 Return 119.0 Loss -6.738
+[Train] Ep 570 Return 116.0 Loss 0.693
+[Train] Ep 580 Return 105.0 Loss 2.504
+[Train] Ep 590 Return 107.0 Loss 8.664
+[Train] Ep 600 Return 111.0 Loss -1.712
+[Eval ] Ep 600 AvgReturn 113.6 ±  4.4
+[Train] Ep 610 Return 132.0 Loss 3.755
+[Train] Ep 620 Return 139.0 Loss -3.613
+[Train] Ep 630 Return 195.0 Loss 1.674
+[Train] Ep 640 Return 176.0 Loss 4.195
+[Train] Ep 650 Return 205.0 Loss -0.749
+[Eval ] Ep 650 AvgReturn 184.9 ± 12.9
+[Train] Ep 660 Return 324.0 Loss 4.909
+[Train] Ep 670 Return 500.0 Loss 4.822
+[Train] Ep 680 Return 500.0 Loss 24.108
+[Train] Ep 690 Return 500.0 Loss 17.923
+[Train] Ep 700 Return 500.0 Loss 9.932
+[Eval ] Ep 700 AvgReturn 500.0 ±  0.0
+[Train] Ep 710 Return 500.0 Loss 14.749
+[Train] Ep 720 Return 500.0 Loss 9.618
+[Train] Ep 730 Return 500.0 Loss 10.888
+[Train] Ep 740 Return 500.0 Loss -4.689
+[Train] Ep 750 Return 500.0 Loss -0.785
+[Eval ] Ep 750 AvgReturn 500.0 ±  0.0
+[Train] Ep 760 Return 500.0 Loss 8.211
+[Train] Ep 770 Return 500.0 Loss 18.769
+[Train] Ep 780 Return 500.0 Loss 8.421
+[Train] Ep 790 Return 500.0 Loss -12.179
+[Train] Ep 800 Return 500.0 Loss 2.463
+[Eval ] Ep 800 AvgReturn 500.0 ±  0.0
+[Train] Ep 810 Return 500.0 Loss -10.306
+[Train] Ep 820 Return 500.0 Loss 0.997
+[Train] Ep 830 Return 500.0 Loss -10.086
+[Train] Ep 840 Return 500.0 Loss -25.630
+[Train] Ep 850 Return 500.0 Loss 8.801
+[Eval ] Ep 850 AvgReturn 495.4 ± 13.8
+[Train] Ep 860 Return 225.0 Loss -2.069
+[Train] Ep 870 Return 230.0 Loss 5.155
+[Train] Ep 880 Return 363.0 Loss -5.058
+[Train] Ep 890 Return 440.0 Loss 3.446
+[Train] Ep 900 Return 500.0 Loss 0.840
+[Eval ] Ep 900 AvgReturn 500.0 ±  0.0
+[Train] Ep 910 Return 500.0 Loss 1.927
+[Train] Ep 920 Return 500.0 Loss -1.971
+[Train] Ep 930 Return 500.0 Loss -8.811
+[Train] Ep 940 Return 500.0 Loss -12.053
+[Train] Ep 950 Return 500.0 Loss 3.257
+[Eval ] Ep 950 AvgReturn 500.0 ±  0.0
+[Train] Ep 960 Return 500.0 Loss -10.465
+[Train] Ep 970 Return 500.0 Loss -11.092
+[Train] Ep 980 Return 500.0 Loss -22.812
+[Train] Ep 990 Return 500.0 Loss 6.397
+[Train] Ep 1000 Return 500.0 Loss -10.215
+[Eval ] Ep 1000 AvgReturn 500.0 ±  0.0
+Training complete.
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'CartPole-v1'}, 'seed': 0, 'agent': {'lr': 0.01, 'gamma': 0.99, 'hidden_size': 256}, 'train': {'episodes': 1000, 'eval_interval': 50, 'eval_episodes': 10}}
+[Train] Ep  10 Return  10.0 Loss 0.218
+[Train] Ep  20 Return  10.0 Loss 0.043
+[Train] Ep  30 Return  11.0 Loss 0.022
+[Train] Ep  40 Return  10.0 Loss 0.018
+[Train] Ep  50 Return  10.0 Loss 0.006
+[Eval ] Ep  50 AvgReturn   9.7 ±  0.8
+[Train] Ep  60 Return  10.0 Loss 0.001
+[Train] Ep  70 Return  10.0 Loss 0.001
+[Train] Ep  80 Return  10.0 Loss 0.000
+[Train] Ep  90 Return   9.0 Loss 0.000
+[Train] Ep 100 Return   8.0 Loss 0.000
+[Eval ] Ep 100 AvgReturn   9.1 ±  0.7
+[Train] Ep 110 Return  11.0 Loss 0.000
+[Train] Ep 120 Return   9.0 Loss 0.000
+[Train] Ep 130 Return   8.0 Loss 0.000
+[Train] Ep 140 Return   8.0 Loss 0.000
+[Train] Ep 150 Return  10.0 Loss 0.000
+[Eval ] Ep 150 AvgReturn   9.6 ±  0.7
+[Train] Ep 160 Return  10.0 Loss 0.000
+[Train] Ep 170 Return  10.0 Loss 0.000
+[Train] Ep 180 Return   9.0 Loss 0.000
+[Train] Ep 190 Return  11.0 Loss 0.000
+[Train] Ep 200 Return   9.0 Loss 0.000
+[Eval ] Ep 200 AvgReturn   9.3 ±  0.8
+[Train] Ep 210 Return   9.0 Loss 0.000
+[Train] Ep 220 Return  10.0 Loss 0.000
+[Train] Ep 230 Return   9.0 Loss 0.000
+[Train] Ep 240 Return  10.0 Loss 0.000
+[Train] Ep 250 Return   9.0 Loss 0.000
+[Eval ] Ep 250 AvgReturn   9.2 ±  0.7
+[Train] Ep 260 Return   8.0 Loss 0.000
+[Train] Ep 270 Return   9.0 Loss 0.000
+[Train] Ep 280 Return   9.0 Loss 0.000
+[Train] Ep 290 Return   9.0 Loss 0.000
+[Train] Ep 300 Return  10.0 Loss 0.000
+[Eval ] Ep 300 AvgReturn   8.9 ±  0.5
+[Train] Ep 310 Return  10.0 Loss 0.000
+[Train] Ep 320 Return   9.0 Loss 0.000
+[Train] Ep 330 Return   8.0 Loss 0.000
+[Train] Ep 340 Return   9.0 Loss 0.000
+[Train] Ep 350 Return   9.0 Loss 0.000
+[Eval ] Ep 350 AvgReturn   9.8 ±  0.6
+[Train] Ep 360 Return   9.0 Loss 0.000
+[Train] Ep 370 Return   9.0 Loss 0.000
+[Train] Ep 380 Return   8.0 Loss 0.000
+[Train] Ep 390 Return   8.0 Loss 0.000
+[Train] Ep 400 Return   9.0 Loss 0.000
+[Eval ] Ep 400 AvgReturn   9.3 ±  0.6
+[Train] Ep 410 Return   9.0 Loss 0.000
+[Train] Ep 420 Return   9.0 Loss 0.000
+[Train] Ep 430 Return  10.0 Loss 0.000
+[Train] Ep 440 Return  10.0 Loss 0.000
+[Train] Ep 450 Return   8.0 Loss 0.000
+[Eval ] Ep 450 AvgReturn   9.5 ±  0.8
+[Train] Ep 460 Return   8.0 Loss 0.000
+[Train] Ep 470 Return   9.0 Loss 0.000
+[Train] Ep 480 Return   9.0 Loss 0.000
+[Train] Ep 490 Return   8.0 Loss 0.000
+[Train] Ep 500 Return  10.0 Loss 0.000
+[Eval ] Ep 500 AvgReturn   8.8 ±  0.6
+[Train] Ep 510 Return   9.0 Loss 0.000
+[Train] Ep 520 Return   8.0 Loss 0.000
+[Train] Ep 530 Return   9.0 Loss 0.000
+[Train] Ep 540 Return  10.0 Loss 0.000
+[Train] Ep 550 Return  10.0 Loss 0.000
+[Eval ] Ep 550 AvgReturn   9.2 ±  0.9
+[Train] Ep 560 Return  10.0 Loss 0.000
+[Train] Ep 570 Return  10.0 Loss 0.000
+[Train] Ep 580 Return   9.0 Loss 0.000
+[Train] Ep 590 Return  10.0 Loss 0.000
+[Train] Ep 600 Return  10.0 Loss 0.000
+[Eval ] Ep 600 AvgReturn   9.4 ±  0.8
+[Train] Ep 610 Return  10.0 Loss 0.000
+[Train] Ep 620 Return   8.0 Loss 0.000
+[Train] Ep 630 Return  11.0 Loss 0.000
+[Train] Ep 640 Return   9.0 Loss 0.000
+[Train] Ep 650 Return   8.0 Loss 0.000
+[Eval ] Ep 650 AvgReturn   9.1 ±  0.7
+[Train] Ep 660 Return  10.0 Loss 0.000
+[Train] Ep 670 Return  10.0 Loss 0.000
+[Train] Ep 680 Return   9.0 Loss 0.000
+[Train] Ep 690 Return   9.0 Loss 0.000
+[Train] Ep 700 Return   9.0 Loss 0.000
+[Eval ] Ep 700 AvgReturn   9.7 ±  0.6
+[Train] Ep 710 Return   9.0 Loss 0.000
+[Train] Ep 720 Return  10.0 Loss 0.000
+[Train] Ep 730 Return   9.0 Loss 0.000
+[Train] Ep 740 Return   9.0 Loss 0.000
+[Train] Ep 750 Return   9.0 Loss 0.000
+[Eval ] Ep 750 AvgReturn   9.7 ±  0.5
+[Train] Ep 760 Return   9.0 Loss 0.000
+[Train] Ep 770 Return  10.0 Loss 0.000
+[Train] Ep 780 Return   9.0 Loss 0.000
+[Train] Ep 790 Return  10.0 Loss 0.000
+[Train] Ep 800 Return  10.0 Loss 0.000
+[Eval ] Ep 800 AvgReturn   9.5 ±  0.5
+[Train] Ep 810 Return   8.0 Loss 0.000
+[Train] Ep 820 Return   8.0 Loss 0.000
+[Train] Ep 830 Return   8.0 Loss 0.000
+[Train] Ep 840 Return  10.0 Loss 0.000
+[Train] Ep 850 Return   9.0 Loss 0.000
+[Eval ] Ep 850 AvgReturn   9.7 ±  0.5
+[Train] Ep 860 Return  10.0 Loss 0.000
+[Train] Ep 870 Return  10.0 Loss 0.000
+[Train] Ep 880 Return   9.0 Loss 0.000
+[Train] Ep 890 Return   9.0 Loss 0.000
+[Train] Ep 900 Return   9.0 Loss 0.000
+[Eval ] Ep 900 AvgReturn   9.2 ±  0.7
+[Train] Ep 910 Return  11.0 Loss 0.000
+[Train] Ep 920 Return   9.0 Loss 0.000
+[Train] Ep 930 Return   9.0 Loss 0.000
+[Train] Ep 940 Return   9.0 Loss 0.000
+[Train] Ep 950 Return  10.0 Loss 0.000
+[Eval ] Ep 950 AvgReturn   9.2 ±  0.7
+[Train] Ep 960 Return  10.0 Loss 0.000
+[Train] Ep 970 Return   9.0 Loss 0.000
+[Train] Ep 980 Return   9.0 Loss 0.000
+[Train] Ep 990 Return  10.0 Loss 0.000
+[Train] Ep 1000 Return   9.0 Loss 0.000
+[Eval ] Ep 1000 AvgReturn   9.4 ±  0.7
+
+
+
+this is output for enviroment LunarLander-v3
+
+ python rl_exercises/week_5/policy_gradient.py env.name=LunarLander-v3 train.episodes=2000 train.eval_interval=100 train.eval_episodes=5
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+config: {'env': {'name': 'LunarLander-v3'}, 'seed': 0, 'agent': {'lr': 0.01, 'gamma': 0.99, 'hidden_size': 128}, 'train': {'episodes': 2000, 'eval_interval': 100, 'eval_episodes': 5}}
+/opt/anaconda3/envs/rl/lib/python3.11/site-packages/pygame/pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+[Train] Ep  10 Return -249.6 Loss 5.182
+[Train] Ep  20 Return -138.1 Loss -5.828
+[Train] Ep  30 Return -110.6 Loss 0.931
+[Train] Ep  40 Return -114.6 Loss -3.463
+[Train] Ep  50 Return -70.4 Loss -3.565
+[Train] Ep  60 Return  -6.6 Loss 8.601
+[Train] Ep  70 Return  -7.5 Loss -1.086
+[Train] Ep  80 Return -55.2 Loss -12.561
+[Train] Ep  90 Return  39.6 Loss 22.543
+[Train] Ep 100 Return -335.9 Loss 2.530
+[Eval ] Ep 100 AvgReturn -216.1 ± 77.9
+[Train] Ep 110 Return -117.5 Loss 1.212
+[Train] Ep 120 Return  -4.1 Loss -4.524
+[Train] Ep 130 Return -128.5 Loss -0.162
+[Train] Ep 140 Return -58.7 Loss -11.467
+[Train] Ep 150 Return -33.9 Loss -3.907
+[Train] Ep 160 Return 246.5 Loss -66.054
+[Train] Ep 170 Return  15.8 Loss -11.222
+[Train] Ep 180 Return -50.0 Loss -19.871
+[Train] Ep 190 Return -11.0 Loss 20.283
+[Train] Ep 200 Return -115.1 Loss -3.703
+[Eval ] Ep 200 AvgReturn -16.7 ± 72.3
+[Train] Ep 210 Return -136.8 Loss -6.149
+[Train] Ep 220 Return -127.6 Loss -6.281
+[Train] Ep 230 Return  -1.0 Loss 0.201
+[Train] Ep 240 Return  23.1 Loss -3.805
+[Train] Ep 250 Return -171.4 Loss -15.683
+[Train] Ep 260 Return -16.8 Loss -3.976
+[Train] Ep 270 Return -148.5 Loss 6.521
+[Train] Ep 280 Return -84.4 Loss 4.667
+[Train] Ep 290 Return -35.3 Loss 23.182
+[Train] Ep 300 Return -191.2 Loss -4.899
+[Eval ] Ep 300 AvgReturn -77.4 ± 62.2
+[Train] Ep 310 Return -105.5 Loss 5.997
+[Train] Ep 320 Return  29.4 Loss -4.077
+[Train] Ep 330 Return -69.5 Loss -13.230
+[Train] Ep 340 Return  41.2 Loss -5.171
+[Train] Ep 350 Return   0.9 Loss 28.274
+[Train] Ep 360 Return -12.0 Loss -36.792
+[Train] Ep 370 Return -44.7 Loss -7.932
+[Train] Ep 380 Return -42.4 Loss -0.308
+[Train] Ep 390 Return 210.4 Loss -38.332
+[Train] Ep 400 Return -181.5 Loss 1.096
+[Eval ] Ep 400 AvgReturn -97.6 ± 84.9
+[Train] Ep 410 Return -112.1 Loss 32.071
+[Train] Ep 420 Return 260.4 Loss -36.517
+[Train] Ep 430 Return 206.3 Loss -86.205
+[Train] Ep 440 Return -43.8 Loss 4.757
+[Train] Ep 450 Return  26.1 Loss -2.210
+[Train] Ep 460 Return -56.8 Loss 30.900
+[Train] Ep 470 Return 198.4 Loss -120.120
+[Train] Ep 480 Return 166.6 Loss -133.765
+[Train] Ep 490 Return 298.7 Loss -50.694
+[Train] Ep 500 Return   0.1 Loss 11.174
+[Eval ] Ep 500 AvgReturn   5.0 ± 30.8
+[Train] Ep 510 Return 237.0 Loss -34.821
+[Train] Ep 520 Return 291.4 Loss -74.696
+[Train] Ep 530 Return -82.9 Loss 103.089
+[Train] Ep 540 Return 221.0 Loss -82.367
+[Train] Ep 550 Return 217.6 Loss -51.986
+[Train] Ep 560 Return  12.6 Loss 9.800
+[Train] Ep 570 Return  21.7 Loss 5.202
+[Train] Ep 580 Return -13.3 Loss 4.026
+[Train] Ep 590 Return 269.7 Loss -5.220
+[Train] Ep 600 Return  43.5 Loss -13.354
+[Eval ] Ep 600 AvgReturn  93.8 ± 145.8
+[Train] Ep 610 Return  -6.0 Loss -28.173
+[Train] Ep 620 Return 272.2 Loss 17.979
+[Train] Ep 630 Return  19.6 Loss 5.618
+[Train] Ep 640 Return  -0.9 Loss 6.860
+[Train] Ep 650 Return  23.1 Loss 2.472
+[Train] Ep 660 Return -16.0 Loss 8.461
+[Train] Ep 670 Return -135.9 Loss 13.900
+[Train] Ep 680 Return -86.6 Loss 7.267
+[Train] Ep 690 Return -67.6 Loss -5.716
+[Train] Ep 700 Return -68.5 Loss 2.965
+[Eval ] Ep 700 AvgReturn -82.3 ± 40.6
+[Train] Ep 710 Return -61.2 Loss -5.512
+[Train] Ep 720 Return  18.3 Loss 9.188
+[Train] Ep 730 Return  11.4 Loss -0.014
+[Train] Ep 740 Return 144.6 Loss -117.727
+[Train] Ep 750 Return 121.5 Loss -159.802
+[Train] Ep 760 Return -103.1 Loss -7.134
+[Train] Ep 770 Return  51.8 Loss -8.732
+[Train] Ep 780 Return 170.4 Loss -13.708
+[Train] Ep 790 Return -83.5 Loss 3.693
+[Train] Ep 800 Return -63.5 Loss 5.144
+[Eval ] Ep 800 AvgReturn -61.9 ± 24.7
+[Train] Ep 810 Return  -2.4 Loss 12.943
+[Train] Ep 820 Return -90.0 Loss -0.097
+[Train] Ep 830 Return -159.7 Loss -1.976
+[Train] Ep 840 Return -170.8 Loss -1.012
+[Train] Ep 850 Return 240.7 Loss -67.420
+[Train] Ep 860 Return -145.4 Loss -12.211
+[Train] Ep 870 Return -187.9 Loss 7.802
+[Train] Ep 880 Return -131.6 Loss -46.352
+[Train] Ep 890 Return -55.7 Loss 5.870
+[Train] Ep 900 Return 219.6 Loss -47.294
+[Eval ] Ep 900 AvgReturn -102.6 ± 34.6
+[Train] Ep 910 Return -64.3 Loss 21.609
+[Train] Ep 920 Return 248.2 Loss -4.490
+[Train] Ep 930 Return  18.3 Loss -5.264
+[Train] Ep 940 Return  36.8 Loss -10.160
+[Train] Ep 950 Return  -7.7 Loss 8.430
+[Train] Ep 960 Return 210.9 Loss -23.403
+[Train] Ep 970 Return  12.8 Loss 5.984
+[Train] Ep 980 Return -22.4 Loss 7.401
+[Train] Ep 990 Return -28.8 Loss 18.586
+[Train] Ep 1000 Return  44.2 Loss 9.936
+[Eval ] Ep 1000 AvgReturn -18.3 ± 23.5
+[Train] Ep 1010 Return -41.6 Loss 10.939
+[Train] Ep 1020 Return  19.7 Loss 3.398
+[Train] Ep 1030 Return  30.2 Loss -6.187
+[Train] Ep 1040 Return -13.3 Loss 6.903
+[Train] Ep 1050 Return -33.0 Loss 23.732
+[Train] Ep 1060 Return -65.0 Loss -3.873
+[Train] Ep 1070 Return 235.8 Loss 51.094
+[Train] Ep 1080 Return -15.1 Loss 10.413
+[Train] Ep 1090 Return  36.2 Loss 19.236
+[Train] Ep 1100 Return -11.2 Loss 29.248
+[Eval ] Ep 1100 AvgReturn  -7.6 ± 23.5
+[Train] Ep 1110 Return   8.4 Loss 17.196
+[Train] Ep 1120 Return  51.2 Loss 8.247
+[Train] Ep 1130 Return 254.2 Loss -37.508
+[Train] Ep 1140 Return 151.8 Loss -147.764
+[Train] Ep 1150 Return -292.1 Loss -7.169
+[Train] Ep 1160 Return -140.2 Loss 6.545
+[Train] Ep 1170 Return -80.4 Loss -18.032
+[Train] Ep 1180 Return -17.4 Loss -62.461
+[Train] Ep 1190 Return -54.1 Loss -22.584
+[Train] Ep 1200 Return 267.3 Loss -63.432
+[Eval ] Ep 1200 AvgReturn 151.5 ± 90.9
+[Train] Ep 1210 Return -33.6 Loss 11.513
+[Train] Ep 1220 Return  17.9 Loss 2.268
+[Train] Ep 1230 Return 272.8 Loss 31.269
+[Train] Ep 1240 Return -24.9 Loss 5.443
+[Train] Ep 1250 Return -49.6 Loss -1.191
+[Train] Ep 1260 Return  24.0 Loss 0.153
+[Train] Ep 1270 Return -22.6 Loss 2.529
+[Train] Ep 1280 Return  10.5 Loss 0.757
+[Train] Ep 1290 Return   7.9 Loss -4.126
+[Train] Ep 1300 Return -42.2 Loss 3.410
+[Eval ] Ep 1300 AvgReturn  34.7 ± 113.2
+[Train] Ep 1310 Return  43.7 Loss -4.021
+[Train] Ep 1320 Return  21.4 Loss 5.205
+[Train] Ep 1330 Return  -4.8 Loss 9.440
+[Train] Ep 1340 Return -17.8 Loss 5.280
+[Train] Ep 1350 Return  14.9 Loss 8.134
+[Train] Ep 1360 Return -14.9 Loss 4.433
+[Train] Ep 1370 Return  -9.1 Loss 2.239
+[Train] Ep 1380 Return  27.2 Loss 14.177
+[Train] Ep 1390 Return  -9.6 Loss 8.598
+[Train] Ep 1400 Return -29.6 Loss 14.795
+[Eval ] Ep 1400 AvgReturn -55.0 ± 23.1
+[Train] Ep 1410 Return -74.6 Loss -0.573
+[Train] Ep 1420 Return -20.5 Loss 8.039
+[Train] Ep 1430 Return -46.7 Loss 11.423
+[Train] Ep 1440 Return -87.7 Loss 12.496
+[Train] Ep 1450 Return -30.7 Loss 16.198
+[Train] Ep 1460 Return -87.4 Loss -19.467
+[Train] Ep 1470 Return -40.3 Loss 2.437
+[Train] Ep 1480 Return  10.8 Loss -11.950
+[Train] Ep 1490 Return  52.2 Loss -4.255
+[Train] Ep 1500 Return  24.5 Loss 4.040
+[Eval ] Ep 1500 AvgReturn  16.6 ± 31.3
+[Train] Ep 1510 Return -36.7 Loss -1.088
+[Train] Ep 1520 Return  10.5 Loss -5.602
+[Train] Ep 1530 Return -16.2 Loss -6.443
+[Train] Ep 1540 Return -36.0 Loss -10.320
+[Train] Ep 1550 Return 235.9 Loss -19.941
+[Train] Ep 1560 Return 180.0 Loss -110.714
+[Train] Ep 1570 Return  34.6 Loss 9.196
+[Train] Ep 1580 Return -64.3 Loss -32.811
+[Train] Ep 1590 Return  24.0 Loss 5.763
+[Train] Ep 1600 Return -28.3 Loss 7.760
+[Eval ] Ep 1600 AvgReturn  -7.9 ± 18.6
+[Train] Ep 1610 Return -36.7 Loss 8.418
+[Train] Ep 1620 Return  24.2 Loss 3.498
+[Train] Ep 1630 Return -29.3 Loss 6.494
+[Train] Ep 1640 Return   6.4 Loss 5.357
+[Train] Ep 1650 Return -18.9 Loss -1.417
+[Train] Ep 1660 Return  17.9 Loss 4.235
+[Train] Ep 1670 Return -19.9 Loss 2.121
+[Train] Ep 1680 Return -67.6 Loss -5.779
+[Train] Ep 1690 Return  43.8 Loss 10.576
+[Train] Ep 1700 Return  12.4 Loss 0.149
+[Eval ] Ep 1700 AvgReturn -14.2 ± 27.3
+[Train] Ep 1710 Return  34.4 Loss 16.532
+[Train] Ep 1720 Return  21.6 Loss -13.995
+[Train] Ep 1730 Return   0.7 Loss 13.478
+[Train] Ep 1740 Return 269.7 Loss 1.353
+[Train] Ep 1750 Return -34.2 Loss -2.392
+[Train] Ep 1760 Return  39.9 Loss -23.653
+[Train] Ep 1770 Return  75.4 Loss 11.573
+[Train] Ep 1780 Return  34.7 Loss -12.743
+[Train] Ep 1790 Return -32.6 Loss -12.382
+[Train] Ep 1800 Return -40.7 Loss 1.383
+[Eval ] Ep 1800 AvgReturn -28.7 ± 87.6
+[Train] Ep 1810 Return -112.6 Loss 2.352
+[Train] Ep 1820 Return -128.1 Loss -4.633
+[Train] Ep 1830 Return -172.7 Loss -22.629
+[Train] Ep 1840 Return -162.9 Loss -3.220
+[Train] Ep 1850 Return -168.7 Loss -10.579
+[Train] Ep 1860 Return -193.9 Loss 14.546
+[Train] Ep 1870 Return -224.8 Loss 9.669
+[Train] Ep 1880 Return -135.9 Loss -48.668
+[Train] Ep 1890 Return -48.1 Loss -30.284
+[Train] Ep 1900 Return -68.9 Loss -5.776
+[Eval ] Ep 1900 AvgReturn -54.8 ± 34.3
+[Train] Ep 1910 Return  16.3 Loss -19.058
+[Train] Ep 1920 Return -58.9 Loss -6.474
+[Train] Ep 1930 Return -90.2 Loss -3.521
+[Train] Ep 1940 Return  20.2 Loss -35.472
+[Train] Ep 1950 Return  64.9 Loss -4.900
+[Train] Ep 1960 Return 158.0 Loss 1.641
+[Train] Ep 1970 Return 202.3 Loss -98.002
+[Train] Ep 1980 Return   9.6 Loss -14.840
+[Train] Ep 1990 Return  33.3 Loss 18.652
+[Train] Ep 2000 Return  20.0 Loss 6.326
+[Eval ] Ep 2000 AvgReturn  45.2 ± 93.1

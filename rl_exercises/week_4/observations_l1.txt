@@ -1,0 +1,52 @@
+Level 1 observations
+
+I trained a DQN agent on CartPole-v1 with different hyperparameter settings.
+The learning-curve plots and the corresponding CSV files are saved under:
+
+rl_exercises/week_4/output/
+
+In each plot, the x-axis is the number of environment frames and the y-axis is
+the mean reward over the last 10 finished episodes.
+
+For the baseline run, I used hidden_dim = 64, hidden_layers = 2,
+buffer_capacity = 10000, batch_size = 32, learning_rate = 0.001, gamma = 0.99,
+epsilon_decay = 500, and target_update_freq = 1000. At the beginning, the agent
+performed poorly, with rewards around 10-20. This makes sense because epsilon
+was still high and the agent was mostly exploring. After a few thousand frames,
+the reward started to increase. The baseline finished with a mean reward of
+277.7, so the agent clearly learned a better policy, although it did not fully
+solve CartPole-v1.
+
+When I changed the network width, the 64-wide network performed best among the
+tested widths. The 32-wide network also learned, but its final reward was lower.
+The 128-wide network did not improve the result. In this run, making the network
+wider did not automatically make the agent better.
+
+Changing the depth gave an interesting result. The model with only one hidden
+layer performed best and reached a final mean reward of 294.4. The baseline with
+two hidden layers reached 277.7. The model with three hidden layers performed
+worse and finished at 135.8. For CartPole, the simpler model seems to be enough,
+and adding more depth can make learning less stable.
+
+For the replay buffer, I compared buffer_capacity = 1000 with the baseline value
+of 10000. The smaller buffer learned a useful policy and reached a maximum mean
+reward of 280.1, but it finished lower than the baseline. The larger buffer
+looked more stable near the end of training. My interpretation is that the
+smaller buffer can adapt quickly, but the larger buffer gives more diverse
+training samples.
+
+For the batch size, batch_size = 32 performed better than batch_size = 64. The
+batch size 64 run reached a maximum mean reward of 191.9 and finished at 176.2,
+which was clearly below the baseline. In this experiment, increasing the batch
+size did not help.
+
+Overall, the best final result from these runs was the model with hidden_dim = 64
+and hidden_layers = 1, using buffer_capacity = 10000 and batch_size = 32. It
+reached a mean reward of 294.4. The main takeaway is that bigger networks or
+larger batches are not always better. For a relatively simple environment like
+CartPole-v1, a smaller network can work very well.
+
+These conclusions are only based on one seed, so they are not fully reliable.
+To make stronger claims, I would need to repeat each configuration with several
+different random seeds and compare the average behavior, which is the goal of
+Level 2.

@@ -65,6 +65,8 @@ def train(cfg: DictConfig) -> float:
         return train_sb3(env, cfg)
     elif cfg.agent == "random":
         agent = RandomAgent(env)
+    elif cfg.agent in ["policy_iteration", "value_iteration"]:
+        agent = eval(cfg.agent_class)(env, seed=cfg.seed, **cfg.agent_kwargs)
     elif cfg.agent in ["sarsa", "qlearning"]:
         policy = EpsilonGreedyPolicy(env, seed=cfg.seed, **cfg.policy_kwargs)
         agent = TDAgent(env, policy, algorithm=cfg.agent, **cfg.agent_kwargs)
@@ -80,24 +82,38 @@ def train(cfg: DictConfig) -> float:
     state, info = env.reset(seed=cfg.seed)
     train_reward_buffer = {"steps": [], "train_rewards": []}
     eval_reward_buffer = {"eval_steps": [], "eval_rewards": []}
+    debug_trace = bool(cfg.get("debug_trace", False))
 
     for step in range(int(cfg.training_steps)):
+        episode_step = int(getattr(env.unwrapped, "current_steps", 0)) + 1
         action, info = agent.predict_action(state, info)
         next_state, reward, terminated, truncated, info = env.step(action)
+        done = truncated or terminated
 
-        buffer.add(state, action, reward, next_state, (truncated or terminated), info)
+        buffer.add(state, action, reward, next_state, done, info)
         train_reward_buffer["steps"].append(step)
         train_reward_buffer["train_rewards"].append(reward)
 
-        if len(buffer) > cfg.batch_size or (
-            cfg.update_after_episode_end and (terminated or truncated)
-        ):
+        if len(buffer) > cfg.batch_size or (cfg.update_after_episode_end and done):
             batch = buffer.sample(cfg.batch_size)
             agent.update_agent(batch)
 
+        if debug_trace:
+            print_training_trace(
+                agent,
+                env,
+                step,
+                episode_step,
+                state,
+                action,
+                next_state,
+                reward,
+                done,
+            )
+
         state = next_state
 
-        if terminated or truncated:
+        if done:
             state, info = env.reset(seed=cfg.seed)
 
         if step % cfg.eval_every_n_steps == 0:
@@ -121,6 +137,38 @@ def train(cfg: DictConfig) -> float:
     final_eval = evaluate(env, agent, cfg.n_eval_episodes)
     print(f"Final eval reward was: {final_eval}")
     return final_eval
+
+
+def print_training_trace(
+    agent: AbstractAgent,
+    env: gym.Env,
+    step: int,
+    episode_step: int,
+    state: Any,
+    action: Any,
+    next_state: Any,
+    reward: SupportsFloat,
+    done: bool,
+) -> None:
+    """Print one compact training-step trace for tabular agents."""
+    print(f"\nTRAIN STEP {step} | EPISODE STEP {episode_step}")
+    print(f"  state/location: {state}")
+    print(f"  action: {action}")
+    print(f"  next_state: {next_state}, reward: {float(reward):.2f}, done: {done}")
+
+    if not hasattr(agent, "Q"):
+        return
+
+    base_env = env.unwrapped
+    states = getattr(base_env, "states", sorted(agent.Q.keys()))  # type: ignore[attr-defined]
+    q_table = np.vstack([agent.Q[s] for s in states])  # type: ignore[attr-defined]
+    v_values = np.max(q_table, axis=1)
+    greedy_policy = np.argmax(q_table, axis=1)
+
+    print("  Q table rows=states, cols=actions:")
+    print(q_table)
+    print("  V = max_a Q(s,a):", v_values)
+    print("  greedy policy:", greedy_policy)
 
 
 def train_sb3(env: gym.Env, cfg: DictConfig) -> float:

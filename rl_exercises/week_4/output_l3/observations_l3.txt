@@ -1,0 +1,24 @@
+Level 3 observations
+
+I compared four Rainbow-style DQN ablations on CartPole-v1.
+Seeds used: [0, 1, 2, 3, 4]
+
+Configurations:
+- Base DQN
+- DQN + prioritized replay
+- DQN + Double DQN
+- DQN + prioritized replay + Double DQN
+
+Shared hyperparameters:
+- hidden_dim = 64
+- hidden_layers = 2
+- buffer_capacity = 10000
+- batch_size = 32
+- learning_rate = 0.001
+- gamma = 0.99
+- epsilon_decay = 500
+- target_update_freq = 1000
+- per_alpha = 0.6
+- per_beta = 0.4
+
+Use the RLiable plots in this folder to discuss whether prioritized replay, Double DQN, or their combination improved sample efficiency or final score.
