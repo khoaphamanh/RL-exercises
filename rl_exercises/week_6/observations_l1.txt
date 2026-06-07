@@ -1,0 +1,70 @@
+Level 1 observations
+
+Plots:
+- CartPole-v1 actor-critic baseline comparison: rl_exercises/week_6/output_l1/actor_critic_cartpole.png
+- LunarLander-v3 actor-critic baseline comparison: rl_exercises/week_6/output_l1/actor_critic_lunarlander.png
+
+Run setup:
+- Seeds: 0, 1, 2
+- Evaluation episodes: 3
+- Evaluation interval: 2000 environment steps
+- CartPole-v1 training steps: 8000
+- LunarLander-v3 training steps: 12000
+- Curves saved as CSV files under rl_exercises/week_6/output_l1/
+
+Hyperparameters:
+- Algorithm: on-policy actor-critic
+- Baselines compared: none, avg, value, gae
+- CartPole-v1 lr_actor: 0.0005
+- CartPole-v1 lr_critic: 0.001
+- LunarLander-v3 lr_actor: 0.005
+- LunarLander-v3 lr_critic: 0.01
+- gamma: 0.99
+- gae_lambda: 0.95
+- hidden_size: 128
+- baseline_decay for avg baseline: 0.9
+
+Final CartPole-v1 average returns by run:
+- none seed 0: 247.0
+- none seed 1: 43.3
+- none seed 2: 367.7
+- avg seed 0: 247.0
+- avg seed 1: 43.3
+- avg seed 2: 367.7
+- value seed 0: 56.0
+- value seed 1: 83.0
+- value seed 2: 53.3
+- gae seed 0: 28.7
+- gae seed 1: 49.0
+- gae seed 2: 49.3
+
+Final CartPole-v1 summary:
+- none: 219.3 +/- 133.8
+- avg: 219.3 +/- 133.8
+- value: 64.1 +/- 13.4
+- gae: 42.3 +/- 9.7
+
+Final LunarLander-v3 average returns by run:
+- none seed 0: -681.2
+- none seed 1: -354.1
+- none seed 2: -298.4
+- avg seed 0: -681.2
+- avg seed 1: -354.1
+- avg seed 2: -298.4
+- value seed 0: -104.7
+- value seed 1: 94.7
+- value seed 2: -189.6
+- gae seed 0: -804.7
+- gae seed 1: -2164.1
+- gae seed 2: -793.0
+
+Final LunarLander-v3 summary:
+- none: -444.6 +/- 168.9
+- avg: -444.6 +/- 168.9
+- value: -66.5 +/- 119.1
+- gae: -1253.9 +/- 643.6
+
+Observations:
+On CartPole-v1, the none and avg baselines reached the highest final mean return in these short runs, but the standard deviation was also very high. The value and GAE variants were more stable across seeds but did not reach the same final return within 8000 steps.
+
+On LunarLander-v3, the learned value baseline performed best. This fits the expected role of a baseline: subtracting a state-dependent value estimate reduces policy-gradient variance without changing the expected gradient. The running-average baseline only subtracts a constant, so it cannot explain why some states are better than others. GAE can reduce variance further through TD residuals and lambda weighting, but in this short run it was unstable on LunarLander, especially for seed 1.

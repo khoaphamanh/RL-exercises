@@ -1,0 +1,64 @@
+Level 2 observations
+
+Plot:
+- PPO vs actor-critic on LunarLander-v3: rl_exercises/week_6/output_l2/ppo_vs_actor_critic_lunarlander.png
+
+Run setup:
+- Environment: LunarLander-v3
+- Seeds: 0, 1, 2
+- Evaluation episodes: 3
+- Evaluation interval: 2000 environment steps
+- Training steps: 12000
+- Curves saved as CSV files under rl_exercises/week_6/output_l2/
+
+Actor-critic hyperparameters:
+- Baseline: gae
+- lr_actor: 0.005
+- lr_critic: 0.01
+- gamma: 0.99
+- gae_lambda: 0.95
+- hidden_size: 128
+
+PPO vanilla hyperparameters:
+- lr_actor: 0.0005
+- lr_critic: 0.001
+- gamma: 0.99
+- gae_lambda: 0.95
+- clip_eps: 0.2
+- epochs: 4
+- batch_size: 64
+- ent_coef: 0.01
+- vf_coef: 0.5
+- hidden_size: 128
+- target_kl: None
+- max_grad_norm: 10.0
+
+PPO enhanced hyperparameters:
+- Same as PPO vanilla except:
+- target_kl: 0.03
+- max_grad_norm: 0.5
+
+Enhancements implemented:
+- KL early stopping: PPO stops reusing a rollout when the approximate KL becomes too large, limiting destructive policy updates.
+- Gradient clipping: the combined actor-critic gradient norm is capped to reduce unstable optimizer steps.
+
+Final LunarLander-v3 average returns by run:
+- ActorCritic-GAE seed 0: -804.7
+- ActorCritic-GAE seed 1: -2164.1
+- ActorCritic-GAE seed 2: -793.0
+- PPO-vanilla seed 0: -1092.8
+- PPO-vanilla seed 1: -1907.1
+- PPO-vanilla seed 2: -1712.8
+- PPO-enhanced seed 0: -1402.1
+- PPO-enhanced seed 1: -1985.5
+- PPO-enhanced seed 2: -1664.8
+
+Final LunarLander-v3 summary:
+- ActorCritic-GAE: -1253.9 +/- 643.6
+- PPO-vanilla: -1570.9 +/- 347.3
+- PPO-enhanced: -1684.1 +/- 238.6
+
+Observations:
+In these short LunarLander-v3 runs, ActorCritic-GAE had the best final mean return, PPO vanilla was second, and PPO enhanced was most conservative. The enhanced PPO run had lower variance than ActorCritic-GAE, but it also achieved a lower final return. This is consistent with the purpose of KL early stopping and gradient clipping: they reduce the chance of very large policy updates, but can slow improvement when the total training budget is small.
+
+PPO should usually become more competitive with longer training because it makes multiple clipped mini-batch updates from each rollout. The current 12000-step run is enough to produce comparison plots, but it is still noisy for LunarLander.
