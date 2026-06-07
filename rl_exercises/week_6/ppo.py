@@ -9,6 +9,7 @@ from typing import Any, List, Tuple
 import gymnasium as gym
 import numpy as np
 import torch
+import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
 
@@ -53,6 +54,8 @@ class PPOAgent(AbstractAgent):
         batch_size: int = 64,
         ent_coef: float = 0.01,
         vf_coef: float = 0.5,
+        target_kl: float | None = None,
+        max_grad_norm: float = 0.5,
         seed: int = 0,
         hidden_size: int = 128,
     ) -> None:
@@ -66,6 +69,8 @@ class PPOAgent(AbstractAgent):
         self.batch_size = batch_size
         self.ent_coef = ent_coef
         self.vf_coef = vf_coef
+        self.target_kl = target_kl
+        self.max_grad_norm = max_grad_norm
 
         # networks
         self.policy = Policy(env.observation_space, env.action_space, hidden_size)
@@ -100,8 +105,24 @@ class PPOAgent(AbstractAgent):
         next_values: torch.Tensor,  # noqa: F841
         dones: torch.Tensor,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
-        # TODO: compute advantages using GAE (Hint: replicate the GAE formula from actor critic)
-        return None  # template placeholder
+        rewards_t = torch.tensor(rewards, dtype=torch.float32)
+        values = values.detach()
+        next_values = next_values.detach()
+
+        deltas = rewards_t + self.gamma * next_values * (1.0 - dones) - values
+        advantages = torch.zeros_like(rewards_t)
+        gae = 0.0
+        for t in reversed(range(len(rewards))):
+            gae = deltas[t] + (self.gamma * self.gae_lambda * (1.0 - dones[t]) * gae)
+            advantages[t] = gae
+
+        returns = advantages + values
+        # PPO commonly normalizes advantages per rollout. This leaves the value
+        # target unchanged while making the policy-gradient scale more stable.
+        advantages = (advantages - advantages.mean()) / (
+            advantages.std(unbiased=False) + 1e-8
+        )
+        return advantages.detach(), returns.detach()
 
     def update(self, trajectory: List[Any]) -> None:
         # unpack trajectory
@@ -111,14 +132,11 @@ class PPOAgent(AbstractAgent):
         entropies = torch.stack([t[3] for t in trajectory]).detach()  # noqa: F841
         rewards = [t[4] for t in trajectory]
         dones = torch.tensor([t[5] for t in trajectory], dtype=torch.float32)
+        next_states = torch.stack([torch.from_numpy(t[6]).float() for t in trajectory])
 
-        # TODO: compute values and next_values without gradients
-        values = ...  # noqa: F841  # template placeholder
-        next_values = ...  # noqa: F841  # template placeholder
-
-        # TODO: compute advantages and returns
-        advantages = ...  # template placeholder
-        returns = ...  # template placeholder
+        with torch.no_grad():
+            values = self.value_fn(states)
+            next_values = self.value_fn(next_states)
 
         advantages, returns = self.compute_gae(rewards, values, next_values, dones)
 
@@ -131,21 +149,19 @@ class PPOAgent(AbstractAgent):
 
         for _ in range(self.epochs):
             for b_states, b_actions, b_oldlogp, b_adv, b_ret in loader:
-                # TODO: compute policy loss, value loss, and entropy loss
+                probs = self.policy(b_states)
+                dist = Categorical(probs)
+                new_logp = dist.log_prob(b_actions)
 
-                # TODO: compute new log probabilities by sampling actions from the policy distribution
-                new_logp = ...  # noqa: F841  # template placeholder
+                ratio = torch.exp(new_logp - b_oldlogp)
+                unclipped = ratio * b_adv
+                clipped = (
+                    torch.clamp(ratio, 1.0 - self.clip_eps, 1.0 + self.clip_eps) * b_adv
+                )
+                policy_loss = -torch.min(unclipped, clipped).mean()
 
-                # TODO: compute the ratio of new log probabilities to old log probabilities
-
-                # TODO: compute the clipped surrogate loss using the clipped objective
-                policy_loss = ...  # template placeholder
-
-                # TODO: compute value loss using mean squared error
-                value_loss = ...  # template placeholder
-
-                # TODO: compute entropy loss using the distribution's entropy
-                entropy_loss = ...  # template placeholder
+                value_loss = F.mse_loss(self.value_fn(b_states), b_ret)
+                entropy_loss = -dist.entropy().mean()
 
                 loss = (
                     policy_loss
@@ -154,7 +170,23 @@ class PPOAgent(AbstractAgent):
                 )
                 self.optimizer.zero_grad()
                 loss.backward()
+                torch.nn.utils.clip_grad_norm_(
+                    list(self.policy.parameters()) + list(self.value_fn.parameters()),
+                    self.max_grad_norm,
+                )
                 self.optimizer.step()
+
+                # Optional KL early stopping is a common PPO implementation
+                # safeguard: stop reusing this rollout if the new policy has
+                # already moved too far from the behavior policy.
+                if self.target_kl is not None:
+                    approx_kl = (b_oldlogp - new_logp).mean().item()
+                    if approx_kl > self.target_kl:
+                        return (
+                            policy_loss.item(),
+                            value_loss.item(),
+                            entropy_loss.item(),
+                        )
 
         return policy_loss.item(), value_loss.item(), entropy_loss.item()
 
@@ -228,6 +260,8 @@ def main(cfg: DictConfig) -> None:
         batch_size=cfg.agent.batch_size,
         ent_coef=cfg.agent.ent_coef,
         vf_coef=cfg.agent.vf_coef,
+        target_kl=cfg.agent.get("target_kl", None),
+        max_grad_norm=cfg.agent.get("max_grad_norm", 0.5),
         seed=cfg.seed,
         hidden_size=cfg.agent.hidden_size,
     )

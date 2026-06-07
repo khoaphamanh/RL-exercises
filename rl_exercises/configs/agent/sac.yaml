@@ -1,0 +1,24 @@
+# configs/agent/sac.yaml
+# Hydra configuration for the week 6 Soft Actor-Critic implementation.
+
+env:
+  name: Pendulum-v1
+
+seed: 0
+
+agent:
+  lr_actor: 3e-4
+  lr_critic: 3e-4
+  gamma: 0.99
+  tau: 0.005
+  alpha: 0.2
+  batch_size: 256
+  buffer_size: 100000
+  learning_starts: 1000
+  updates_per_step: 1
+  hidden_size: 256
+
+train:
+  total_steps: 50000
+  eval_interval: 5000
+  eval_episodes: 5

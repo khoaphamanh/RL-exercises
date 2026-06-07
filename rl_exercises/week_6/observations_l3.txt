@@ -1,0 +1,37 @@
+Level 3 observations
+
+Plot:
+- SAC on Pendulum-v1: rl_exercises/week_6/output_l3/sac_pendulum.png
+
+Run setup:
+- Environment: Pendulum-v1
+- Seeds: 0, 1, 2
+- Evaluation episodes: 3
+- Evaluation interval: 2000 environment steps
+- Training steps: 12000
+- Curves saved as CSV files under rl_exercises/week_6/output_l3/
+
+SAC hyperparameters:
+- lr_actor: 0.0003
+- lr_critic: 0.0003
+- gamma: 0.99
+- tau: 0.005
+- alpha: 0.2
+- batch_size: 128
+- buffer_size: 100000
+- learning_starts: 1000
+- updates_per_step: 1
+- hidden_size: 256
+
+Final Pendulum-v1 average returns by run:
+- SAC seed 0: -83.3
+- SAC seed 1: -121.9
+- SAC seed 2: -329.9
+
+Final Pendulum-v1 summary:
+- SAC: -178.4 +/- 108.3
+
+Observations:
+The SAC implementation uses the main components from the paper: a stochastic tanh-Gaussian actor, twin Q-networks, target Q-networks, replay buffer updates, and entropy regularization. The Pendulum-v1 result improves to a reasonable negative return within 12000 steps, especially for seeds 0 and 1.
+
+The SAC paper claims that can be checked here are mostly qualitative. SAC is off-policy and reuses old transitions from replay, while PPO is on-policy and updates from fresh rollouts. SAC also supports continuous action spaces directly, which is why Pendulum-v1 is a natural test environment. The PPO implementation in this repository uses a categorical discrete policy, so a direct same-environment comparison against PPO would require adding a continuous-action PPO policy first.
