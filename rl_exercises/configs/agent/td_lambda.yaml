@@ -1,9 +1,10 @@
 # @package _global_
-agent: sarsa
-agent_name: sarsa
+agent: td_lambda
+agent_name: td_lambda
 agent_kwargs:
-  alpha: 0.5
+  alpha: 0.1
   gamma: 1.0
+  lambda_: 0.8
 policy_kwargs:
   epsilon: 0.1
 batch_size: 0

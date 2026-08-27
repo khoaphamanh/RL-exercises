@@ -1,0 +1,32 @@
+Level 2 observations: SARSA vs Q-learning on MarsRover
+
+I ran both agents on MarsRover with the default Level 2 setup:
+
+python rl_exercises/train_agent.py agent=sarsa env_name=MarsRover
+python rl_exercises/train_agent.py agent=qlearning env_name=MarsRover
+
+For the checked run, both agents learned to move right from the start state toward
+the high-reward state at position 4. Their final greedy rollouts were also the
+same:
+
+states:  2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4
+actions: R, R, L, R, L, R, L, R, L, R
+reward:  0, 10, 0, 10, 0, 10, 0, 10, 0, 10
+total:   50
+
+The main conceptual difference is in the target used for learning. SARSA is
+on-policy: it updates toward the value of the action that the current
+epsilon-greedy policy would actually take next, including exploratory actions.
+Q-learning is off-policy: it updates toward the maximum next-state action value,
+so it learns as if the greedy action is taken next even while behavior is still
+epsilon-greedy.
+
+In this small deterministic MarsRover setting, the difference was not very large.
+Q-learning's evaluation was steadier in my run, while SARSA showed more variation
+during intermediate evaluations. Both methods still ended with the same
+suboptimal oscillating behavior between positions 3 and 4 instead of learning to
+stay at position 4. A likely reason is that the environment has a finite horizon,
+but the Q table only observes the rover position, not the remaining time step.
+Because time is hidden from the state, the same position can have different
+returns depending on when it is reached, which makes the tabular state
+representation imperfect for this episodic task.

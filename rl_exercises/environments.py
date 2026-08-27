@@ -188,8 +188,15 @@ class MarsRover(gym.Env):
         next_state : int
             The resulting state.
         """
-        # TODO: Implement the environment dynamics to determine the next state
-        return state
+        if action == 0:  # left
+            next_state = max(0, state - 1)  # minumum state is 0 on the left
+        elif action == 1:  # right
+            next_state = min(
+                self.observation_space.n - 1, state + 1
+            )  # minumum state is 0 on the left
+        else:
+            raise RuntimeError(f"Invalid action {action} (needs to be 0 or 1)")
+        return next_state
 
     def get_transition_matrix(
         self,
@@ -219,10 +226,43 @@ class MarsRover(gym.Env):
             S, A, P = self.states, self.actions, self.P
 
         nS, nA = len(S), len(A)
-        T = np.zeros((nS, nA, nS), dtype=float)
-        # TODO: Determine the transition matrix using the get_next_state function
-        # and the transition probabilities P.
+        T = np.zeros((nS, nA, nS), dtype=float)  # T.shape = (5, 2, 5)
 
+        for s in S:
+            for a in A:
+                next_s_follow = self.get_next_state(s, a)
+                # print(f"From state {s} taking action {a}:")
+                # print("next_s_follow:", next_s_follow)y
+                next_s_flip = self.get_next_state(s, 1 - a)
+                # print("next_s_flip:", next_s_flip)
+
+                # print()
+
+                T[s, a, next_s_follow] += P[s, a]
+                # print("T:", T)
+                T[s, a, next_s_flip] += 1 - P[s, a]
+                # print("T:", T)
+                # print()
+
+        # print(S)
+        # print(A)
+        # print(f"Transition matrix T[s, a, s']:\n{T}")
+
+        # Transition matrix T[s, a, s']:
+        # [[[1. 0. 0. 0. 0.]
+        # [0. 1. 0. 0. 0.]]
+
+        # [[1. 0. 0. 0. 0.]
+        # [0. 0. 1. 0. 0.]]
+
+        # [[0. 1. 0. 0. 0.]
+        # [0. 0. 0. 1. 0.]]
+
+        # [[0. 0. 1. 0. 0.]
+        # [0. 0. 0. 0. 1.]]
+
+        # [[0. 0. 0. 1. 0.]
+        # [0. 0. 0. 0. 1.]]]
         return T
 
     def render(self, mode: str = "human"):

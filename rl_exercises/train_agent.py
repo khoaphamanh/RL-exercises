@@ -22,6 +22,12 @@ from rl_exercises.agent.buffer import SimpleBuffer
 from rl_exercises.environments import MarsRover
 from rl_exercises.week_2.policy_iteration import PolicyIteration
 from rl_exercises.week_2.value_iteration import ValueIteration
+from rl_exercises.week_3 import (
+    EpsilonGreedyPolicy,
+    RandomWalkTDLambdaEnv,
+    TDAgent,
+    TDLambdaAgent,
+)
 
 # from rl_exercises.week_4 import EpsilonGreedyPolicy as TabularEpsilonGreedyPolicy
 # from rl_exercises.week_4 import SARSAAgent
@@ -59,6 +65,12 @@ def train(cfg: DictConfig) -> float:
         return train_sb3(env, cfg)
     elif cfg.agent == "random":
         agent = RandomAgent(env)
+    elif cfg.agent in ["sarsa", "qlearning"]:
+        policy = EpsilonGreedyPolicy(env, seed=cfg.seed, **cfg.policy_kwargs)
+        agent = TDAgent(env, policy, algorithm=cfg.agent, **cfg.agent_kwargs)
+    elif cfg.agent == "td_lambda":
+        policy = EpsilonGreedyPolicy(env, seed=cfg.seed, **cfg.policy_kwargs)
+        agent = TDLambdaAgent(env, policy, **cfg.agent_kwargs)
     else:
         # TODO: add your agent options here
         raise NotImplementedError
@@ -211,6 +223,8 @@ def make_env(env_name: str, env_kwargs: dict = {}) -> gym.Env:
     if env_name == "MarsRover":
         env = MarsRover(**env_kwargs)
         # env = TimeLimit(env, max_episode_steps=env.horizon)
+    elif env_name == "RandomWalkTDLambda":
+        env = RandomWalkTDLambdaEnv(**env_kwargs)
     elif "MiniGrid" in env_name:
         env = gym.make(env_name, **env_kwargs)
         # env = RGBImgObsWrapper(env)

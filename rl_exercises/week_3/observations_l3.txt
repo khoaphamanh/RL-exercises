@@ -1,0 +1,52 @@
+Level 3 observations: TD(lambda)
+
+I implemented TD(lambda) as SARSA(lambda) with accumulating eligibility traces.
+The agent keeps a second table E beside the Q table. On every transition it
+computes the usual SARSA TD error, increments the trace for the current
+state-action pair, updates all traced Q values, and decays the traces by
+gamma * lambda. Traces are reset at episode boundaries.
+
+I used lambda = 0.8. I reduced the default learning rate to alpha = 0.1 because
+eligibility traces update several state-action pairs from one TD error; with the
+same alpha = 0.5 used by SARSA/Q-learning, the MarsRover values became unstable.
+
+MarsRover result:
+
+python rl_exercises/train_agent.py agent=td_lambda env_name=MarsRover
+
+The final greedy rollout was:
+
+states:  2, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4
+actions: R, R, L, R, L, R, L, R, L, R
+reward:  0, 10, 0, 10, 0, 10, 0, 10, 0, 10
+total:   50
+
+This matches the main behavior seen for SARSA and Q-learning in Level 2. The
+agent quickly propagates reward information backward through the trace, but the
+same state-representation issue remains: MarsRover observations only include
+position, not remaining time. Because the horizon matters but is hidden, the
+agent can settle on the oscillation between positions 3 and 4 instead of a
+globally clean finite-horizon strategy.
+
+Random-walk example:
+
+python rl_exercises/train_agent.py agent=td_lambda env_name=RandomWalkTDLambda \
+  training_steps=3000 eval_every_n_steps=1000 n_eval_episodes=20 \
+  policy_kwargs.epsilon=1.0
+
+This environment is a small seven-state random walk with terminal states at the
+left and right ends. The right terminal gives reward 1 and the left terminal
+gives reward 0, matching the kind of delayed-reward prediction setup discussed
+in the TD(lambda) paper. I added a finite horizon so evaluation cannot hang if a
+greedy policy loops between interior states.
+
+The final greedy rollout was:
+
+states:  3, 4, 5, 6
+actions: R, R, R
+reward:  0, 0, 1
+total:   1
+
+This result matches the expected qualitative behavior: once the right terminal
+reward is observed, eligibility traces spread credit back to earlier states in
+the episode faster than a one-step TD update would.
